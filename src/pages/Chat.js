@@ -35,11 +35,11 @@ const Chat = () => {
 
   return (
     <Flex w="100%" h="100vh" justify="center" align="center" px={["4", "6"]}>
-{/*       
+      
       <Box w={["90%", "80%", "70%", "30%"]} pr={4}>
         <ConversationsList /> 
       </Box> 
-      */}
+     
 
       <Flex
         w={["90%", "80%", "70%", "50%"]}
