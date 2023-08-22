@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Flex,
@@ -44,12 +45,14 @@ export default function SplitScreen() {
             </Text>
             <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
               <Button
+                as={Link}
                 rounded={'full'}
                 bg={'blue.400'}
                 color={'white'}
                 _hover={{
                   bg: 'blue.500',
                 }}
+                to="/signup"
               >
                 Get Started
               </Button>

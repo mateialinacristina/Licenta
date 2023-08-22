@@ -1,4 +1,6 @@
 import React from 'react';
+import { useUserType } from '../UserTypeContext';
+import { Link } from 'react-router-dom';
 import {
   Box,
   Flex,
@@ -17,6 +19,41 @@ import {
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
+  const { userType } = useUserType();
+
+  const NAV_ITEMS = userType === 'user' ?  [
+    {
+      label: 'Home',
+      href: '/',
+    },
+    {
+      label: 'Locations',
+      href: '/locations',
+    },
+    {
+      label: 'Your Application',
+      href: '/application',
+    },
+    {
+      label: 'Organizations',
+      href: '/organizations',
+    }
+  ] : [
+    {
+      label: 'AddLocation',
+      href: '/addlocation',
+    },
+    {
+      label: 'Messages',
+      href: '/messages',
+    },
+    {
+      label: 'Reservations',
+      href: '/reservations',
+    },
+  ];
+
+
 
   return (
     <Box>
@@ -48,7 +85,7 @@ export default function WithSubnavigation() {
           </Text>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <DesktopNav />
+            <DesktopNav navItems={NAV_ITEMS} />
           </Flex>
         </Flex>
 
@@ -57,31 +94,43 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-          <Button as={'a'} fontSize={'sm'} fontWeight={600} variant={'solid'} colorScheme="gray" href={'#'}>
+          <Button 
+            as={Link} 
+            fontSize={'sm'} 
+            fontWeight={600} 
+            variant={'solid'} 
+            colorScheme="gray" 
+            to="/signin"> 
             Log In
           </Button>
-          <Button as={'a'} fontSize={'sm'} fontWeight={600} variant={'solid'} colorScheme="gray" href={'#'}>
+          <Button 
+            as={Link} 
+            fontSize={'sm'} 
+            fontWeight={600} 
+            variant={'solid'} 
+            colorScheme="gray" 
+            to="/signup"> 
             Sign Up
           </Button>
         </Stack>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
+        <MobileNav navItems={NAV_ITEMS} />
       </Collapse>
     </Box>
   );
 }
 
-const DesktopNav = () => {
+const DesktopNav = ({ navItems }) => {
   return (
     <Stack direction={'row'} spacing={4}>
-      {NAV_ITEMS.map((navItem) => (
+      {navItems.map((navItem) => (
         <Box key={navItem.label}>
           <Box
-            as="a"
+            as={Link} 
             p={2}
-            href={navItem.href}
+            to={navItem.href} 
             fontSize={'m'}
             fontWeight={500}
             color="white"
@@ -97,32 +146,14 @@ const DesktopNav = () => {
   );
 };
 
-const MobileNav = () => {
+const MobileNav = ({ navItems }) => {
   return (
     <Stack bg="#458471" p={4} display={{ md: 'none' }}>
-      {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label} py={2} as="a" href={navItem.href} color="white">
+      {navItems.map((navItem) => (
+        <Box key={navItem.label} py={2} as={Link} to={navItem.href} color="white">  // Update here
           {navItem.label}
         </Box>
       ))}
     </Stack>
   );
 };
-
-const NAV_ITEMS = [
-  {
-    label: 'Home',
-    href: '#',
-  },{
-    label: 'Locations',
-    href: '#',
-  },
-  {
-    label: 'Your Application',
-    href: '#',
-  },
-  {
-    label: 'Organizations',
-    href: '#',
-  }
-];

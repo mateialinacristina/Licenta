@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
 import {
   Box,
   Flex,
   Heading,
-  Link,
+  Link as ChakraLink, 
   Card,
   CardBody,
   Image,
@@ -10,9 +11,10 @@ import {
   Text,
   Divider,
   CardFooter,
-  ButtonGroup,
   Button,
 } from '@chakra-ui/react';
+
+
 
 const Locations = () => {
   return (
@@ -20,18 +22,18 @@ const Locations = () => {
       <Flex flexDirection="column" alignItems="center" justifyContent="center">
         <Heading mb={4}>Locatii</Heading>
         <Flex>
-          <Link href="#" marginX={2}>
+          <ChakraLink href="#" marginX={2}>
             Bucuresti
-          </Link>
-          <Link href="#" marginX={2}>
+          </ChakraLink>
+          <ChakraLink href="#" marginX={2}>
             Cluj
-          </Link>
-          <Link href="#" marginX={2}>
+          </ChakraLink>
+          <ChakraLink href="#" marginX={2}>
             Timisoara
-          </Link>
-          <Link href="#" marginX={2}>
+          </ChakraLink>
+          <ChakraLink href="#" marginX={2}>
             Iasi
-          </Link>
+          </ChakraLink>
           {/* Add more links here */}
         </Flex>
       </Flex>
@@ -62,7 +64,7 @@ const Locations = () => {
               </CardBody>
               <Divider />
               <CardFooter d="flex" justifyContent="center">
-                <Button variant="solid" colorScheme="blue">
+                <Button as={Link} variant="solid" colorScheme="blue" to="/viewhome">
                   Vezi locatia
                 </Button>
               </CardFooter>

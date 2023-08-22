@@ -7,7 +7,8 @@ import {
   Text,
   Avatar,
   HStack,
-  VStack
+  VStack,
+  Divider,
 } from '@chakra-ui/react';
 
 // Sample data for conversations (this should ideally come from a database/API)
@@ -16,7 +17,7 @@ const sampleConversations = [
     id: 1,
     organizationName: 'Emaus Dristor',
     patientName: 'John Doe',
-    lastMessage: 'Hey, can you help me with...'
+    lastMessage: 'Hey, can you help me with the application for a reservation?'
   },
   {
     id: 2,
@@ -24,10 +25,15 @@ const sampleConversations = [
     patientName: 'Alice Smith',
     lastMessage: 'When is my next appointment?'
   },
-  // ... add more sample conversations as needed
+  {
+    id: 3,
+    organizationName: 'Emaus Iancului',
+    patientName: 'Ferin Patel',
+    lastMessage: 'Can i make a reservation?'
+  },
 ];
 
-const ConversationsList = () => {
+const ConversationsList = ({ onConversationClick }) => {
   return (
     <Box w="100%" p={4}>
       <Heading as="h2" size="xl" mb={4}>
@@ -35,7 +41,15 @@ const ConversationsList = () => {
       </Heading>
       <List spacing={4}>
         {sampleConversations.map((conversation) => (
-          <ListItem key={conversation.id} borderWidth="1px" borderRadius="lg" p={4}>
+          <ListItem 
+            key={conversation.id} 
+            borderWidth="1px" 
+            borderRadius="lg" 
+            p={4}
+            cursor="pointer"  // change cursor to indicate item is clickable
+            _hover={{ backgroundColor: "gray.100" }}  // optional hover effect
+            onClick={() => onConversationClick(conversation.id)} // Click event
+          >
             <HStack spacing={3}>
               <Avatar name={conversation.patientName} />
               <VStack align="start" spacing={1}>
@@ -53,5 +67,4 @@ const ConversationsList = () => {
     </Box>
   );
 };
-
 export default ConversationsList;
