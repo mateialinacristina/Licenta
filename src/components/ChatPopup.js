@@ -6,7 +6,6 @@ import {
     Input,
     Button,
     VStack,
-    Text,
   } from "@chakra-ui/react";
   import { ChatIcon, CloseIcon } from "@chakra-ui/icons";
   import { useState } from "react";

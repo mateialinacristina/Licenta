@@ -5,7 +5,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
   HStack,
   Textarea,
   Stack,
@@ -13,14 +12,10 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  Link,
   Select,
 } from '@chakra-ui/react';
-import { useState } from 'react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 export default function Application() {
-  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <Flex
@@ -44,26 +39,26 @@ export default function Application() {
             <HStack>
               <Box>
                 <FormControl id="firstName" isRequired>
-                  <FormLabel>First Name<span style={{color:'red'}}>*</span></FormLabel>
+                  <FormLabel>First Name</FormLabel>
                   <Input type="text" />
                 </FormControl>
               </Box>
               <Box>
                 <FormControl id="lastName" isRequired>
-                  <FormLabel>Last Name<span style={{color:'red'}}>*</span></FormLabel>
+                  <FormLabel>Last Name</FormLabel>
                   <Input type="text" />
                 </FormControl>
               </Box>
             </HStack>
             <FormControl id="caretaker" isRequired>
-              <FormLabel>Will you come with a caretaker?<span style={{color:'red'}}>*</span></FormLabel>
+              <FormLabel>Will you come with a caretaker?</FormLabel>
               <Select placeholder="Select option">
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
               </Select>
             </FormControl>
             <FormControl id="medical-files" isRequired>
-              <FormLabel>Attach your medical files here<span style={{color:'red'}}>*</span></FormLabel>
+              <FormLabel>Attach your medical files here</FormLabel>
               <Input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, .pdf" multiple />
             </FormControl>
             <FormControl id="details">

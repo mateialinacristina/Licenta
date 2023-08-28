@@ -12,16 +12,13 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react';
-import {
-  HamburgerIcon,
-  CloseIcon,
-} from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
-  const { userType } = useUserType();
+  const { user, userType, logout } = useUserType();
 
-  const NAV_ITEMS = userType === 'user' ?  [
+  const GENERAL_NAV_ITEMS = [
     {
       label: 'Home',
       href: '/',
@@ -34,11 +31,9 @@ export default function WithSubnavigation() {
       label: 'Your Application',
       href: '/application',
     },
-    {
-      label: 'Organizations',
-      href: '/organizations',
-    }
-  ] : [
+  ];
+
+  const ORG_SPECIFIC_NAV_ITEMS = [
     {
       label: 'AddLocation',
       href: '/addlocation',
@@ -53,7 +48,14 @@ export default function WithSubnavigation() {
     },
   ];
 
+  const NAV_ITEMS =
+    user && userType === 'organization'
+      ? [...GENERAL_NAV_ITEMS, ...ORG_SPECIFIC_NAV_ITEMS]
+      : GENERAL_NAV_ITEMS;
 
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <Box>
@@ -63,14 +65,18 @@ export default function WithSubnavigation() {
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        align={'center'}>
+        align={'center'}
+      >
         <Flex
           flex={{ base: 1, md: 'auto' }}
           ml={{ base: -2 }}
-          display={{ base: 'flex', md: 'none' }}>
+          display={{ base: 'flex', md: 'none' }}
+        >
           <IconButton
             onClick={onToggle}
-            icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
+            icon={
+              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+            }
             variant={'ghost'}
             aria-label={'Toggle Navigation'}
           />
@@ -80,7 +86,8 @@ export default function WithSubnavigation() {
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
             fontSize={'xl'}
-            color="white">
+            color="white"
+          >
             Free Housing
           </Text>
 
@@ -93,25 +100,42 @@ export default function WithSubnavigation() {
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
           direction={'row'}
-          spacing={6}>
-          <Button 
-            as={Link} 
-            fontSize={'sm'} 
-            fontWeight={600} 
-            variant={'solid'} 
-            colorScheme="gray" 
-            to="/signin"> 
-            Log In
-          </Button>
-          <Button 
-            as={Link} 
-            fontSize={'sm'} 
-            fontWeight={600} 
-            variant={'solid'} 
-            colorScheme="gray" 
-            to="/signup"> 
-            Sign Up
-          </Button>
+          spacing={6}
+        >
+          {user ? (
+            <Button
+              fontSize={'sm'}
+              fontWeight={600}
+              variant={'solid'}
+              colorScheme="gray"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button
+                as={Link}
+                fontSize={'sm'}
+                fontWeight={600}
+                variant={'solid'}
+                colorScheme="gray"
+                to="/signin"
+              >
+                Log In
+              </Button>
+              <Button
+                as={Link}
+                fontSize={'sm'}
+                fontWeight={600}
+                variant={'solid'}
+                colorScheme="gray"
+                to="/signup"
+              >
+                Sign Up
+              </Button>
+            </>
+          )}
         </Stack>
       </Flex>
 
@@ -125,19 +149,20 @@ export default function WithSubnavigation() {
 const DesktopNav = ({ navItems }) => {
   return (
     <Stack direction={'row'} spacing={4}>
-      {navItems.map((navItem) => (
+      {navItems.map(navItem => (
         <Box key={navItem.label}>
           <Box
-            as={Link} 
+            as={Link}
             p={2}
-            to={navItem.href} 
+            to={navItem.href}
             fontSize={'m'}
             fontWeight={500}
             color="white"
             _hover={{
               textDecoration: 'none',
               color: 'gray.200',
-            }}>
+            }}
+          >
             {navItem.label}
           </Box>
         </Box>
@@ -149,8 +174,15 @@ const DesktopNav = ({ navItems }) => {
 const MobileNav = ({ navItems }) => {
   return (
     <Stack bg="#458471" p={4} display={{ md: 'none' }}>
-      {navItems.map((navItem) => (
-        <Box key={navItem.label} py={2} as={Link} to={navItem.href} color="white">  // Update here
+      {navItems.map(navItem => (
+        <Box
+          key={navItem.label}
+          py={2}
+          as={Link}
+          to={navItem.href}
+          color="white"
+        >
+          {' '}
           {navItem.label}
         </Box>
       ))}

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ChakraProvider, Flex, Box, CSSReset } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import UserTypeContext from './UserTypeContext'
+import { UserTypeProvider } from './UserTypeContext'
 
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
@@ -16,11 +16,11 @@ import OrgSignin from './pages/OrgSignin';
 import AddLocation from './pages/AddLocation';
 import Chat from './pages/Chat';
 import Organizations from './pages/Organizations';
+import Reservations from './pages/Reservations';
 
 function App() {
-  const [userType, setUserType] = useState('user'); 
   return (
-    <UserTypeContext.Provider value={{ userType, setUserType }}> 
+    <UserTypeProvider> 
     <ChakraProvider>
       <CSSReset />
       <Router>
@@ -38,6 +38,7 @@ function App() {
               <Route path="/orgsignin" element={<OrgSignin />} />
               <Route path="/addlocation" element={<AddLocation />} />
               <Route path="/chat" element={<Chat />} />
+              <Route path="/reservations" element={<Reservations />} />
               <Route path="/organizations" element={<Organizations />} />
             </Routes>
           </Box>
@@ -45,7 +46,7 @@ function App() {
         </Flex>
       </Router>
     </ChakraProvider>
-    </UserTypeContext.Provider> 
+    </UserTypeProvider> 
   );
 }
 

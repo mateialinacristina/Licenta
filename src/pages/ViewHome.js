@@ -10,7 +10,6 @@ import {
   VStack,
   Grid,
   Link,
-  Spacer,
 } from '@chakra-ui/react';
 import ChatPopup from '../components/ChatPopup';
 import ImgGallery from '../components/ImgGallery';

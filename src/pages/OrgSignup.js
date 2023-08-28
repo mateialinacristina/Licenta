@@ -1,25 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUserType } from '../UserTypeContext';
 import {
-    Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    InputGroup,
-    HStack,
-    InputRightElement,
-    Stack,
-    Button,
-    Heading,
-    Text,
-    useColorModeValue,
-    Link,
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  Link,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react';
-import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 export default function OrgSignup() {
   const [showPassword, setShowPassword] = useState(false);
+  const [orgName, setOrgName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [files, setFiles] = useState([]);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+
+  const navigate = useNavigate();
+  const { setUserType, setIsLoggedIn } = useUserType();
+
+  const handleSignUp = () => {
+    if (orgName && email && password && files.length) {
+      setUserType('organization');
+      setIsLoggedIn(true);
+      navigate('/'); // redirect to home or dashboard for organizations
+    } else {
+      setShowErrorAlert(true);
+    }
+  };
 
   return (
     <Flex align={'center'} justify={'center'} minH="calc(100vh - 120px)">
@@ -35,19 +55,37 @@ export default function OrgSignup() {
           boxShadow={'lg'}
           p={8}
         >
+          {showErrorAlert && (
+            <Alert status="error" mb={4}>
+              <AlertIcon />
+              Please fill in all required fields!
+            </Alert>
+          )}
           <Stack spacing={4}>
             <FormControl id="orgName" isRequired>
               <FormLabel>Organization name</FormLabel>
-              <Input type="text" />
+              <Input
+                type="text"
+                value={orgName}
+                onChange={e => setOrgName(e.target.value)}
+              />
             </FormControl>
             <FormControl id="email" isRequired>
               <FormLabel>Organization email address</FormLabel>
-              <Input type="email" />
+              <Input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
+                <Input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
@@ -65,7 +103,11 @@ export default function OrgSignup() {
                 Attach your organization’s official documents that attest its
                 veridicity<span style={{ color: 'red' }}>*</span>
               </FormLabel>
-              <Input type="file" multiple />
+              <Input
+                type="file"
+                multiple
+                onChange={e => setFiles(e.target.files)}
+              />
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
@@ -76,6 +118,7 @@ export default function OrgSignup() {
                 _hover={{
                   bg: 'blue.500',
                 }}
+                onClick={handleSignUp}
               >
                 Sign up
               </Button>

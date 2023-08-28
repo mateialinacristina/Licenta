@@ -1,4 +1,7 @@
 import React from 'react'
+import { useState } from 'react';
+import {  useNavigate } from 'react-router-dom';
+import { useUserType } from '../UserTypeContext';
 import {
     Flex,
     Box,
@@ -14,6 +17,21 @@ import {
   } from '@chakra-ui/react';
   
   export default function OrgSignIn() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    const { setUserType, setIsLoggedIn } = useUserType();
+
+    const handleSignIn = () => {
+        if (email === "org@freehousing.com" && password === "password") {
+            setUserType("organization");
+            setIsLoggedIn(true);
+            navigate("/"); // redirect to home or dashboard for organizations
+        } else {
+            alert("Invalid credentials!");
+        }
+    };
     return (
       <Flex
         align={'center'}
@@ -31,11 +49,17 @@ import {
             <Stack spacing={4}>
               <FormControl id="email">
                 <FormLabel>Organization email address</FormLabel>
-                <Input type="email" />
+                <Input 
+                  type="email" 
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}/>
               </FormControl>
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
-                <Input type="password" />
+                <Input                  
+                  type="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}/>
               </FormControl>
               <Stack spacing={10}>
                 <Stack
@@ -50,7 +74,8 @@ import {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }}>
+                  }}
+                  onClick={handleSignIn}>
                   Sign in
                 </Button>
               </Stack>

@@ -12,7 +12,12 @@ import {
 
 export default function SplitScreen() {
   return (
-    <Flex direction="column" align="center" justify="center" minH="calc(100vh - 120px)" >
+    <Flex
+      direction="column"
+      align="center"
+      justify="center"
+      minH="calc(100vh - 120px)"
+    >
       <Stack direction={{ base: 'column', md: 'row' }} spacing={8}>
         <Flex p={4} flex={1} align={'center'} justify={'center'} flexShrink={1}>
           <Stack spacing={4} w={'full'} maxW={'lg'}>
@@ -39,9 +44,11 @@ export default function SplitScreen() {
               </Text>
             </Heading>
             <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
-              Dacă sunteți pacient oncologic și căutați cazare gratuită în timpul tratamentului în orașele din România, suntem aici pentru voi.
-              Găsiți și rezervați cu ușurință locuri de cazare, iar confidențialitatea datelor dumneavoastră este asigurată.
-              Împreună către vindecare!
+              Dacă sunteți pacient oncologic și căutați cazare gratuită în
+              timpul tratamentului în orașele din România, suntem aici pentru
+              voi. Găsiți și rezervați cu ușurință locuri de cazare, iar
+              confidențialitatea datelor dumneavoastră este asigurată. Împreună
+              către vindecare!
             </Text>
             <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
               <Button
@@ -57,6 +64,19 @@ export default function SplitScreen() {
                 Get Started
               </Button>
             </Stack>
+            <Text fontSize={{ base: 'md', lg: 'lg' }} mt={4} color={'black'}>
+              Dorești să-ți înregistrezi organizația pentru a oferi cazare
+              gratuită?{' '}
+              <Text
+                as={Link}
+                color={'black'}
+                to="/orgsignup"
+                textDecoration="underline"
+              >
+                
+                Începe aici
+              </Text>
+            </Text>
           </Stack>
         </Flex>
         <Flex flex={1} align="center" justify="center" flexShrink={1}>
@@ -64,7 +84,9 @@ export default function SplitScreen() {
             alt={'Home Image'}
             objectFit={'cover'}
             maxH={{ base: '30vh', md: '50vh' }}
-            src={'https://economictimes.indiatimes.com/thumb/msid-83033066,width-1200,height-900,resizemode-4,imgsize-202355/home-loan-above-rs-30-lakh-to-rs-75-lakh.jpg?from=mdr'}
+            src={
+              'https://economictimes.indiatimes.com/thumb/msid-83033066,width-1200,height-900,resizemode-4,imgsize-202355/home-loan-above-rs-30-lakh-to-rs-75-lakh.jpg?from=mdr'
+            }
           />
         </Flex>
       </Stack>

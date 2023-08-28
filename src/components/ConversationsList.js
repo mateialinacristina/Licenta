@@ -8,7 +8,6 @@ import {
   Avatar,
   HStack,
   VStack,
-  Divider,
 } from '@chakra-ui/react';
 
 // Sample data for conversations (this should ideally come from a database/API)
