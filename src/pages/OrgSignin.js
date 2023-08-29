@@ -19,18 +19,16 @@ import {
   export default function OrgSignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const { login } = useUserType();
     const navigate = useNavigate();
 
-    const { setUserType, setIsLoggedIn } = useUserType();
-
     const handleSignIn = () => {
-        if (email === "org@freehousing.com" && password === "password") {
-            setUserType("organization");
-            setIsLoggedIn(true);
-            navigate("/"); // redirect to home or dashboard for organizations
-        } else {
-            alert("Invalid credentials!");
-        }
+      if (email === "org@freehousing.com" && password === "password") {
+        login({ role: "organization" }, navigate); // Login as organization
+      } else {
+        alert("Invalid credentials!");
+      }
     };
     return (
       <Flex

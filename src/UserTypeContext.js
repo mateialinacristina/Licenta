@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 import Cookies from 'js-cookie';
 
 const UserTypeContext = createContext();
@@ -10,7 +10,7 @@ export const UserTypeProvider = ({ children }) => {
     setUser(userObj);
     Cookies.set('userRole', userObj.role);
     if (navigate) {
-      navigate('/locations'); 
+      navigate(userObj.role === 'organization' ? '/addlocation' : '/locations');
     }
   };
 

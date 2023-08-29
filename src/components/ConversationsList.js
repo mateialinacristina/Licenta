@@ -34,20 +34,21 @@ const sampleConversations = [
 
 const ConversationsList = ({ onConversationClick }) => {
   return (
-    <Box w="100%" p={4}>
+    <Box w="100%" p={4} borderWidth="3px" borderColor="gray.300" borderRadius="md">
       <Heading as="h2" size="xl" mb={4}>
         Conversations
       </Heading>
       <List spacing={4}>
-        {sampleConversations.map((conversation) => (
+        {sampleConversations.map((conversation, index, array) => (
           <ListItem 
-            key={conversation.id} 
-            borderWidth="1px" 
-            borderRadius="lg" 
+            key={conversation.id}
+            borderBottomWidth={index === array.length - 1 ? '0px' : '1px'} // Skip the bottom border for the last item
+            borderColor="gray.300" 
+            borderRadius="md" 
             p={4}
-            cursor="pointer"  // change cursor to indicate item is clickable
-            _hover={{ backgroundColor: "gray.100" }}  // optional hover effect
-            onClick={() => onConversationClick(conversation.id)} // Click event
+            cursor="pointer"
+            _hover={{ backgroundColor: "gray.100" }}
+            onClick={() => onConversationClick(conversation.id)}
           >
             <HStack spacing={3}>
               <Avatar name={conversation.patientName} />
@@ -66,4 +67,5 @@ const ConversationsList = ({ onConversationClick }) => {
     </Box>
   );
 };
+
 export default ConversationsList;

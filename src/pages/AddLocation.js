@@ -62,7 +62,7 @@ export default function AddLocationCard() {
               </FormLabel>
               <Input type="text" />
             </FormControl>
-            <FormControl id="availabilityDate">
+            <FormControl id="availabilityDate" isRequired>
               <FormLabel>Specify availability</FormLabel>
               <Box width="80%" mt="2">
                 <DatePicker
@@ -78,7 +78,7 @@ export default function AddLocationCard() {
                 />
               </Box>
             </FormControl>
-            <FormControl id="details">
+            <FormControl id="details" isRequired>
               <FormLabel>Enter details</FormLabel>
               <Textarea placeholder="Enter details" resize="none" />
             </FormControl>

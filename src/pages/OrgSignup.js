@@ -28,14 +28,12 @@ export default function OrgSignup() {
   const [files, setFiles] = useState([]);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
+  const { login } = useUserType();
   const navigate = useNavigate();
-  const { setUserType, setIsLoggedIn } = useUserType();
 
   const handleSignUp = () => {
     if (orgName && email && password && files.length) {
-      setUserType('organization');
-      setIsLoggedIn(true);
-      navigate('/'); // redirect to home or dashboard for organizations
+      login({ role: 'organization' }, navigate); // Sign up as organization
     } else {
       setShowErrorAlert(true);
     }
@@ -101,7 +99,7 @@ export default function OrgSignup() {
             <FormControl id="orgDocuments" isRequired>
               <FormLabel>
                 Attach your organization’s official documents that attest its
-                veridicity<span style={{ color: 'red' }}>*</span>
+                veridicity
               </FormLabel>
               <Input
                 type="file"
@@ -125,7 +123,7 @@ export default function OrgSignup() {
             </Stack>
             <Stack pt={6}>
               <Text align={'center'}>
-                Already a user? <Link color={'blue.400'}>Login</Link>
+                Already a user? <Link color={'blue.400'}  href="/orgsignin">Login</Link>
               </Text>
             </Stack>
           </Stack>

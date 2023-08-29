@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUserType } from '../UserTypeContext';
 import { Link } from 'react-router-dom';
 import {
@@ -15,8 +16,9 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
 export default function WithSubnavigation() {
+  const navigate = useNavigate();
   const { isOpen, onToggle } = useDisclosure();
-  const { user, userType, logout } = useUserType();
+  const { user, logout } = useUserType();
 
   const GENERAL_NAV_ITEMS = [
     {
@@ -30,6 +32,10 @@ export default function WithSubnavigation() {
     {
       label: 'Your Application',
       href: '/application',
+    },
+    {
+      label: 'Organizations',
+      href: '/organizations',
     },
   ];
 
@@ -49,13 +55,14 @@ export default function WithSubnavigation() {
   ];
 
   const NAV_ITEMS =
-    user && userType === 'organization'
-      ? [...GENERAL_NAV_ITEMS, ...ORG_SPECIFIC_NAV_ITEMS]
+    user && user.role === 'organization'
+      ? ORG_SPECIFIC_NAV_ITEMS
       : GENERAL_NAV_ITEMS;
 
-  const handleLogout = () => {
-    logout();
-  };
+      const handleLogout = () => {
+        logout(navigate);
+      };
+    
 
   return (
     <Box>
@@ -173,16 +180,18 @@ const DesktopNav = ({ navItems }) => {
 
 const MobileNav = ({ navItems }) => {
   return (
-    <Stack bg="#458471" p={4} display={{ md: 'none' }}>
-      {navItems.map(navItem => (
+    <Stack bg="#458471" p={4} display={{ md: 'none' }} align="center" spacing={6}>
+      {navItems.map((navItem) => (
         <Box
           key={navItem.label}
           py={2}
           as={Link}
           to={navItem.href}
+          fontSize="md"
+          fontWeight="bold"
           color="white"
+          textAlign="center"
         >
-          {' '}
           {navItem.label}
         </Box>
       ))}
