@@ -82,7 +82,7 @@ export default function SignUp() {
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
-            Sign up
+            Inscrie-te
           </Heading>
         </Stack>
         <Box
@@ -165,12 +165,12 @@ export default function SignUp() {
                     bg: 'blue.500',
                   }}
                 >
-                  Sign up
+                  Inscrie-te
                 </Button>
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
-                  Already a user? <Link color={'blue.400'} href="/signin">Login</Link>
+                  Ai deja cont? <Link color={'blue.400'} href="/signin">Conecteaza-te</Link>
                 </Text>
               </Stack>
             </Stack>

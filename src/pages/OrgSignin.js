@@ -25,7 +25,7 @@ import {
 
     const handleSignIn = () => {
       if (email === "org@freehousing.com" && password === "password") {
-        login({ role: "organization" }, navigate); // Login as organization
+        login({ role: "organization" }, navigate); 
       } else {
         alert("Invalid credentials!");
       }
@@ -35,9 +35,9 @@ import {
         align={'center'}
         justify={'center'}
         minH="calc(100vh - 120px)">
-        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack spacing={8} mx={'auto'} py={12} px={6} width="100%" maxW="400px">
           <Stack align={'center'}>
-            <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+            <Heading fontSize={'4xl'}>Conecteaza-te</Heading>
           </Stack>
           <Box
             rounded={'lg'}
@@ -46,14 +46,14 @@ import {
             p={8}>
             <Stack spacing={4}>
               <FormControl id="email">
-                <FormLabel>Organization email address</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <Input 
                   type="email" 
                   value={email}
                   onChange={e => setEmail(e.target.value)}/>
               </FormControl>
               <FormControl id="password">
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Parola</FormLabel>
                 <Input                  
                   type="password"
                   value={password}
@@ -64,8 +64,7 @@ import {
                   direction={{ base: 'column', sm: 'row' }}
                   align={'start'}
                   justify={'space-between'}>
-                  <Checkbox>Remember me</Checkbox>
-                  <Text color={'blue.400'}>Forgot password?</Text>
+                  <Text color={'blue.400'}>Ai uitat parola?</Text>
                 </Stack>
                 <Button
                   bg={'blue.400'}
@@ -74,7 +73,7 @@ import {
                     bg: 'blue.500',
                   }}
                   onClick={handleSignIn}>
-                  Sign in
+                  Conecteaza-te
                 </Button>
               </Stack>
             </Stack>

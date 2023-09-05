@@ -22,34 +22,34 @@ export default function WithSubnavigation() {
 
   const GENERAL_NAV_ITEMS = [
     {
-      label: 'Home',
+      label: 'Acasă',
       href: '/',
     },
     {
-      label: 'Locations',
+      label: 'Locații',
       href: '/locations',
     },
     {
-      label: 'Your Application',
+      label: 'Datele tale',
       href: '/application',
     },
     {
-      label: 'Organizations',
+      label: 'Organizații',
       href: '/organizations',
     },
   ];
 
   const ORG_SPECIFIC_NAV_ITEMS = [
     {
-      label: 'AddLocation',
+      label: 'Adaugă Locație',
       href: '/addlocation',
     },
     {
-      label: 'Messages',
-      href: '/messages',
+      label: 'Mesaje',
+      href: '/chat',
     },
     {
-      label: 'Reservations',
+      label: 'Rezervări',
       href: '/reservations',
     },
   ];
@@ -117,7 +117,7 @@ export default function WithSubnavigation() {
               colorScheme="gray"
               onClick={handleLogout}
             >
-              Logout
+              Deconectează-te
             </Button>
           ) : (
             <>
@@ -129,7 +129,7 @@ export default function WithSubnavigation() {
                 colorScheme="gray"
                 to="/signin"
               >
-                Log In
+                Conectează-te
               </Button>
               <Button
                 as={Link}
@@ -139,7 +139,7 @@ export default function WithSubnavigation() {
                 colorScheme="gray"
                 to="/signup"
               >
-                Sign Up
+                Inscrie-te
               </Button>
             </>
           )}

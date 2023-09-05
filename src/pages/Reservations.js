@@ -19,28 +19,28 @@ export default function Reservations() {
   const [reservations, setReservations] = useState([
     {
       id: 1,
-      patientName: 'John Doe',
+      patientName: 'Maria Popa',
       datesForHousing: '01 Jan - 07 Jan',
       documents: '/docs/doc1.pdf',
       acceptance: null,
     },
     {
       id: 2,
-      patientName: 'Jane Doe',
+      patientName: 'Ion Neagu',
       datesForHousing: '15 Feb - 21 Feb',
       documents: '/docs/doc2.pdf',
       acceptance: null,
     },
     {
-      id: 2,
-      patientName: 'Jason',
+      id: 3,
+      patientName: 'Stefan Giurgea',
       datesForHousing: '10 Mar - 13 Mar ',
       documents: '/docs/doc2.pdf',
       acceptance: null,
     },
     {
-      id: 2,
-      patientName: 'Johanna',
+      id: 4,
+      patientName: 'Ioana Matei',
       datesForHousing: '5 Feb - 8 Feb',
       documents: '/docs/doc2.pdf',
       acceptance: null,
@@ -63,19 +63,19 @@ export default function Reservations() {
     if (acceptance === null) {
       return (
         <Tag size={'md'} variant="solid" colorScheme="orange">
-          Pending
+          In asteptare
         </Tag>
       );
     } else if (acceptance) {
       return (
         <Tag size={'md'} variant="solid" colorScheme="teal">
-          Accepted
+          Acceptat
         </Tag>
       );
     } else {
       return (
         <Tag size={'md'} variant="solid" colorScheme="red">
-          Rejected
+          Respins
         </Tag>
       );
     }
@@ -84,16 +84,16 @@ export default function Reservations() {
   return (
     <VStack p={4} mx={4} rounded="md" spacing={4}>
       <Heading as="h1" size="xl" pb={4}>
-        Manage Reservations
+        Gestioneaza rezervarile
       </Heading>
       <Box w="100%" p="4" bg="white" rounded="md">
         <Table variant="simple" pt={4}>
           <Thead>
             <Tr>
-              <Th>Patient Name</Th>
-              <Th>Dates for Housing</Th>
-              <Th>Patient Documents</Th>
-              <Th>Acceptance</Th>
+              <Th>Numele beneficiarului</Th>
+              <Th>Data cazarii</Th>
+              <Th>Documente</Th>
+              <Th>Decizie cerere</Th>
               <Th>Status</Th>
             </Tr>
           </Thead>
@@ -122,7 +122,7 @@ export default function Reservations() {
                         )
                       }
                     >
-                      Accept
+                      Accepta
                     </Checkbox>
                     <Checkbox
                       isChecked={reservation.acceptance === false}
@@ -133,7 +133,7 @@ export default function Reservations() {
                         )
                       }
                     >
-                      Reject
+                      Respinge
                     </Checkbox>
                   </Stack>
                 </Td>

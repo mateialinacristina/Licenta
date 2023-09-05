@@ -18,12 +18,12 @@ const Chat = () => {
 
   const bgColor = useColorModeValue('gray.50', 'gray.800');
   const [messages, setMessages] = useState([
-    { from: 'computer', text: 'Hi, My Name is HoneyChat' },
-    { from: 'me', text: 'Hey there' },
-    { from: 'me', text: 'Myself Ferin Patel' },
+    { from: 'computer', text: 'Buna ziua! cu ce va putem ajuta?' },
+    { from: 'me', text: 'Buna ziua!' },
+    { from: 'me', text: 'Ma numesc Stefan Giurgea.' },
     {
       from: 'computer',
-      text: "Nice to meet you. You can send me a message and I'll reply to you with the same message.",
+      text: "Spuneti-ne cu ce va putem ajuta si vom reveni cu o solutionare in cel mai scurt timp.",
     },
   ]);
   const [inputMessage, setInputMessage] = useState('');

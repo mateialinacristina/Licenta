@@ -52,8 +52,8 @@ const ViewHome = () => {
             pl={2} // Left padding
             pr={2} // Right padding
           >
-            <Heading size={{ base: 'md', md: 'lg' }}>Location Name</Heading>
-            <Text fontSize={{ base: 'sm', md: 'lg' }}>Description here </Text>
+            <Heading size={{ base: 'md', md: 'lg' }}>Emaus- Dristor, Sector 3</Heading>
+            <Text fontSize={{ base: 'sm', md: 'lg' }}>Garsoniera din zona Dristor dispune de  bucătărie tip open-space, baie complet utilată, alături de un spațiu de odihnă care poate fi amenajat după gustul fiecăruia. </Text>
             <Box width={{ base: '90%', md: '80%' }} mt="2">
               <DatePicker
                 selected={startDate}
@@ -63,12 +63,12 @@ const ViewHome = () => {
                 selectsRange
                 dateFormat="MMMM d, yyyy"
                 isClearable
-                placeholderText="Select a date range"
+                placeholderText="Selecteaza data dorita"
                 customInput={<Input variant="filled" />}
               />
             </Box>
             <Button size="lg" variant="solid" colorScheme="blue" mt={4}>
-              Reserve
+              Rezerva
             </Button>
             <Link
               href="#"

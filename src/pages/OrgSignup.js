@@ -40,11 +40,14 @@ export default function OrgSignup() {
   };
 
   return (
-    <Flex align={'center'} justify={'center'} minH="calc(100vh - 120px)">
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+    <Flex align={'center'} justify={'center'} minH="calc(100vh - 120px)" ml={['5%', '10%', '15%']}>
+    <Flex direction={['column', 'row']} maxW={'1200px'} w={'full'} spacing={4}>
+      
+      {/* Left side: The Signup Form */}
+      <Stack spacing={4} flex={1} py={4} px={[4, 6]} maxW={['full', 'lg']}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
-            Sign up
+            Inscrie-te
           </Heading>
         </Stack>
         <Box
@@ -56,12 +59,12 @@ export default function OrgSignup() {
           {showErrorAlert && (
             <Alert status="error" mb={4}>
               <AlertIcon />
-              Please fill in all required fields!
+              Completeaza toate campurile obligatorii!
             </Alert>
           )}
           <Stack spacing={4}>
             <FormControl id="orgName" isRequired>
-              <FormLabel>Organization name</FormLabel>
+              <FormLabel>Numele organizatiei</FormLabel>
               <Input
                 type="text"
                 value={orgName}
@@ -69,7 +72,7 @@ export default function OrgSignup() {
               />
             </FormControl>
             <FormControl id="email" isRequired>
-              <FormLabel>Organization email address</FormLabel>
+              <FormLabel>Emailul organizatiei</FormLabel>
               <Input
                 type="email"
                 value={email}
@@ -77,7 +80,7 @@ export default function OrgSignup() {
               />
             </FormControl>
             <FormControl id="password" isRequired>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Parola</FormLabel>
               <InputGroup>
                 <Input
                   type={showPassword ? 'text' : 'password'}
@@ -98,8 +101,7 @@ export default function OrgSignup() {
             </FormControl>
             <FormControl id="orgDocuments" isRequired>
               <FormLabel>
-                Attach your organization’s official documents that attest its
-                veridicity
+                Ataseaza documentele oficiale ale organizatiei care ii atesta veridicitatea
               </FormLabel>
               <Input
                 type="file"
@@ -118,17 +120,42 @@ export default function OrgSignup() {
                 }}
                 onClick={handleSignUp}
               >
-                Sign up
+                Inscrie-te
               </Button>
             </Stack>
             <Stack pt={6}>
               <Text align={'center'}>
-                Already a user? <Link color={'blue.400'}  href="/orgsignin">Login</Link>
+                Ai deja cont? <Link color={'blue.400'}  href="/orgsignin">Conecteaza-te</Link>
               </Text>
             </Stack>
           </Stack>
         </Box>
       </Stack>
+
+      {/* Right side: Additional Text */}
+      <Box
+        d={['none', 'flex']} 
+        maxW={'lg'}
+        pl={[0, 6]}
+        pt={20}
+        flex={1}
+        flexDirection="column"
+        justifyContent="center"
+      >
+        <Stack spacing={2}>
+          <Text fontSize="lg" mb={2}>
+            <strong>*</strong> Campurile marcate cu * sunt obligatorii!
+          </Text>
+          <Text fontSize="lg" mb={2}>
+            <strong>**</strong> Documentele oficiale ale organizatiei care ii atesta veridicitatea sunt:
+          </Text>
+          <Text fontSize="lg" mb={2}>
+            - statutul asociatiei (inregistrarea juridica);
+          </Text>
+        </Stack>
+      </Box>
+
     </Flex>
+  </Flex>
   );
 }

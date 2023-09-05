@@ -18,7 +18,7 @@ const Header = () => {
       </Avatar>
       <Flex flexDirection="column" mx="5" justify="center">
         <Text fontSize={['md', 'lg']} fontWeight="bold">
-          Ferin Patel
+          Stefan Giurgea
         </Text>
         <Text color="green.500">Online</Text>
       </Flex>

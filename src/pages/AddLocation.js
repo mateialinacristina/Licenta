@@ -30,7 +30,7 @@ export default function AddLocationCard() {
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={6} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
-            Add a Location
+            Adauga o locatie
           </Heading>
         </Stack>
         <Box
@@ -41,29 +41,28 @@ export default function AddLocationCard() {
         >
           <Stack spacing={4}>
             <FormControl id="city" isRequired>
-              <FormLabel>Select the city</FormLabel>
-              <Select placeholder="Choose a city">
+              <FormLabel>Selecteaza orasul</FormLabel>
+              <Select placeholder="Alege un oras">
                 <option value="Bucuresti">Bucuresti</option>
                 <option value="Iasi">Iasi</option>
-                {/* Add other city options similarly */}
               </Select>
             </FormControl>
             <FormControl id="photos" isRequired>
-              <FormLabel>Add the photos of your location</FormLabel>
+              <FormLabel>Adauga poze cu locatia</FormLabel>
               <Input type="file" multiple />
             </FormControl>
             <FormControl id="address" isRequired>
-              <FormLabel>Enter the address of your location</FormLabel>
+              <FormLabel>Adauga adresa completa a locatiei</FormLabel>
               <Input type="text" />
             </FormControl>
             <FormControl id="googleMapsLink" isRequired>
               <FormLabel>
-                Add the Google Maps link for your location's address
+                Adauga link-ul de Google Maps catre locatie
               </FormLabel>
               <Input type="text" />
             </FormControl>
             <FormControl id="availabilityDate" isRequired>
-              <FormLabel>Specify availability</FormLabel>
+              <FormLabel>Specifica disponibilitatea locatiei</FormLabel>
               <Box width="80%" mt="2">
                 <DatePicker
                   selected={startDate}
@@ -73,14 +72,14 @@ export default function AddLocationCard() {
                   selectsRange
                   dateFormat="MMMM d, yyyy"
                   isClearable
-                  placeholderText="Select a date range"
+                  placeholderText="Selecteaza o perioada"
                   customInput={<Input variant="filled" />}
                 />
               </Box>
             </FormControl>
             <FormControl id="details" isRequired>
-              <FormLabel>Enter details</FormLabel>
-              <Textarea placeholder="Enter details" resize="none" />
+              <FormLabel>Adauga detalii despre locatie</FormLabel>
+              <Textarea placeholder="Scrie aici.." resize="none" />
             </FormControl>
             <Button
               leftIcon={<CalendarIcon />}
@@ -92,7 +91,7 @@ export default function AddLocationCard() {
                 bg: 'blue.500',
               }}
             >
-              Submit
+              Salveaza
             </Button>
           </Stack>
         </Box>

@@ -15,20 +15,20 @@ const sampleConversations = [
   {
     id: 1,
     organizationName: 'Emaus Dristor',
-    patientName: 'John Doe',
-    lastMessage: 'Hey, can you help me with the application for a reservation?'
+    patientName: 'Ioana Matei',
+    lastMessage: 'Buna ziua, as avea o intrebare specifica..'
   },
   {
     id: 2,
-    organizationName: 'MedCare Center',
-    patientName: 'Alice Smith',
-    lastMessage: 'When is my next appointment?'
+    organizationName: 'Emaus Dristor',
+    patientName: 'Stefan Giurgea',
+    lastMessage: 'Cand ma pot caza la locatie?'
   },
   {
     id: 3,
-    organizationName: 'Emaus Iancului',
-    patientName: 'Ferin Patel',
-    lastMessage: 'Can i make a reservation?'
+    organizationName: 'Emaus Dristor',
+    patientName: 'Maria Popa',
+    lastMessage: 'Data pe care doresc sa o rezerv nu este disponibila'
   },
 ];
 

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import {
   Box,
   Flex,
   Heading,
-  Link as ChakraLink, 
+  Link as ChakraLink,
   Card,
   CardBody,
   Image,
@@ -14,27 +15,137 @@ import {
   Button,
 } from '@chakra-ui/react';
 
-
+const cardInfo = [
+  {
+    title: 'Emaus Dristor',
+    city: 'Bucuresti',
+    description:
+      'Cazare gratuită pentru persoanele cu posibilități financiare reduse, care vin din alte localități la Bucuresti pentru tratament medical.',
+    image:
+      'https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8YXBhcnRhbWVudHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'Emaus Iancului',
+    city: 'Bucuresti',
+    description:
+      'Cazare gratuită pentru persoanele cu posibilități financiare reduse, care vin din alte localități la Bucuresti pentru tratament medical.',
+    image:
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXBhcnRhbWVudCUyMHJvb21zfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'MagicHome',
+    city: 'Bucuresti',
+    description: 'MagicHOME înseamnă acasă pentru familiile cu copii diagnosticaţi cu cancer sau alte afecţiuni grave. Aproape de spitalele de pediatrie, este o locuință disponibila.',
+    image:
+      'https://images.unsplash.com/photo-1499916078039-922301b0eb9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0YW1lbnQlMjByb29tc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'Amethyst',
+    city: 'Bucuresti',
+    description: 'MagicHOME înseamnă acasă pentru familiile cu copii diagnosticaţi cu cancer sau alte afecţiuni grave. Aproape de spitalele de pediatrie, este o locuință disponibila.',
+    image:
+      'https://images.unsplash.com/photo-1499916078039-922301b0eb9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0YW1lbnQlMjByb29tc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'SusInima',
+    city: 'Bucuresti',
+    description: 'MagicHOME înseamnă acasă pentru familiile cu copii diagnosticaţi cu cancer sau alte afecţiuni grave. Aproape de spitalele de pediatrie, este o locuință disponibila.',
+    image:
+      'https://images.unsplash.com/photo-1499916078039-922301b0eb9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0YW1lbnQlMjByb29tc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'Emaus Muncii',
+    city: 'Cluj',
+    description: 'MagicHOME înseamnă acasă pentru familiile cu copii diagnosticaţi cu cancer sau alte afecţiuni grave. Aproape de spitalele de pediatrie, este o locuință disponibila.',
+    image:
+      'https://images.unsplash.com/photo-1499916078039-922301b0eb9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0YW1lbnQlMjByb29tc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'Emaus Hasdeu',
+    city: 'Cluj',
+    description: 'MagicHOME înseamnă acasă pentru familiile cu copii diagnosticaţi cu cancer sau alte afecţiuni grave. Aproape de spitalele de pediatrie, este o locuință disponibila.',
+    image:
+      'https://images.unsplash.com/photo-1499916078039-922301b0eb9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0YW1lbnQlMjByb29tc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'Emaus Rasaritului',
+    city: 'Cluj',
+    description: 'MagicHOME înseamnă acasă pentru familiile cu copii diagnosticaţi cu cancer sau alte afecţiuni grave. Aproape de spitalele de pediatrie, este o locuință disponibila.',
+    image:
+      'https://images.unsplash.com/photo-1499916078039-922301b0eb9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0YW1lbnQlMjByb29tc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'Emaus Fantanele',
+    city: 'Cluj',
+    description: 'MagicHOME înseamnă acasă pentru familiile cu copii diagnosticaţi cu cancer sau alte afecţiuni grave. Aproape de spitalele de pediatrie, este o locuință disponibila.',
+    image:
+      'https://images.unsplash.com/photo-1499916078039-922301b0eb9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0YW1lbnQlMjByb29tc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'Casa Filip',
+    city: 'Cluj',
+    description: 'MagicHOME înseamnă acasă pentru familiile cu copii diagnosticaţi cu cancer sau alte afecţiuni grave. Aproape de spitalele de pediatrie, este o locuință disponibila.',
+    image:
+      'https://images.unsplash.com/photo-1499916078039-922301b0eb9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0YW1lbnQlMjByb29tc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'Solidaris',
+    city: 'Cluj',
+    description: 'MagicHOME înseamnă acasă pentru familiile cu copii diagnosticaţi cu cancer sau alte afecţiuni grave. Aproape de spitalele de pediatrie, este o locuință disponibila.',
+    image:
+      'https://images.unsplash.com/photo-1499916078039-922301b0eb9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0YW1lbnQlMjByb29tc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'Institutul de Oncologie Iasi',
+    city: 'Iasi',
+    description: 'MagicHOME înseamnă acasă pentru familiile cu copii diagnosticaţi cu cancer sau alte afecţiuni grave. Aproape de spitalele de pediatrie, este o locuință disponibila.',
+    image:
+      'https://images.unsplash.com/photo-1499916078039-922301b0eb9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0YW1lbnQlMjByb29tc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  {
+    title: 'Amethyst',
+    city: 'Timisoara',
+    description: 'MagicHOME înseamnă acasă pentru familiile cu copii diagnosticaţi cu cancer sau alte afecţiuni grave. Aproape de spitalele de pediatrie, este o locuință disponibila.',
+    image:
+      'https://images.unsplash.com/photo-1499916078039-922301b0eb9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGFwYXJ0YW1lbnQlMjByb29tc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    link: '/viewhome',
+  },
+  
+];
 
 const Locations = () => {
+  const [selectedCity, setSelectedCity] = useState('Bucuresti'); 
+
+  const cities = ['Bucuresti', 'Cluj', 'Timisoara', 'Iasi'];
+
+  const filteredCardInfo = cardInfo.filter(card => card.city === selectedCity);
   return (
     <Box width="full" mt={8} pl={8} pr={4}>
-      <Flex flexDirection="column" alignItems="center" justifyContent="center">
-        <Heading mb={4}>Locatii</Heading>
+       <Flex flexDirection="column" alignItems="center" justifyContent="center">
+        <Heading mb={4}>Locații</Heading>
         <Flex>
-          <ChakraLink href="#" marginX={2}>
-            Bucuresti
-          </ChakraLink>
-          <ChakraLink href="#" marginX={2}>
-            Cluj
-          </ChakraLink>
-          <ChakraLink href="#" marginX={2}>
-            Timisoara
-          </ChakraLink>
-          <ChakraLink href="#" marginX={2}>
-            Iasi
-          </ChakraLink>
-          {/* Add more links here */}
+          {cities.map((city) => (
+            <ChakraLink
+              key={city}
+              href="#"
+              marginX={2}
+              onClick={() => setSelectedCity(city)}
+            >
+              {city}
+            </ChakraLink>
+          ))}
         </Flex>
       </Flex>
 
@@ -44,27 +155,31 @@ const Locations = () => {
         justifyContent="center"
         mt={6}
       >
-        {[...Array(3)].map((_, i) => (
+        {filteredCardInfo.map((card, i) => (
           <Box key={i} width={['full', '32%', '32%']} p={2}>
             <Card maxW="sm">
               <CardBody>
                 <Image
-                  src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                  alt="Green double couch with wooden legs"
+                  src={card.image}
+                  alt={card.title}
                   borderRadius="lg"
+                  width="100%"
+                  height="200px" 
+                  objectFit="cover"
                 />
                 <Stack mt="6" spacing="3">
-                  <Heading size="md">Emaus Dristor</Heading>
-                  <Text>
-                    This sofa is perfect for modern tropical spaces, baroque inspired
-                    spaces, earthy toned spaces and for people who love a chic design
-                    with a sprinkle of vintage design.
-                  </Text>
+                  <Heading size="md">{card.title}</Heading>
+                  <Text>{card.description}</Text>
                 </Stack>
               </CardBody>
               <Divider />
               <CardFooter d="flex" justifyContent="center">
-                <Button as={Link} variant="solid" colorScheme="blue" to="/viewhome">
+                <Button
+                  as={Link}
+                  variant="solid"
+                  colorScheme="blue"
+                  to={card.link}
+                >
                   Vezi locatia
                 </Button>
               </CardFooter>

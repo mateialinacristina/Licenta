@@ -61,7 +61,7 @@ export default function SplitScreen() {
                 }}
                 to="/signup"
               >
-                Get Started
+                Inscrie-te
               </Button>
             </Stack>
             <Text fontSize={{ base: 'md', lg: 'lg' }} mt={4} color={'black'}>
