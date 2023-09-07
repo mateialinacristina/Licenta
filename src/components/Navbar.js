@@ -59,10 +59,11 @@ export default function WithSubnavigation() {
       ? ORG_SPECIFIC_NAV_ITEMS
       : GENERAL_NAV_ITEMS;
 
-      const handleLogout = () => {
-        logout(navigate);
-      };
-    
+  const handleLogout = () => {
+    logout(navigate);
+  };
+  const showButtons = useBreakpointValue({ base: 'none', md: 'flex' });
+  const logoAlignment = useBreakpointValue({ base: 'center', md: 'left' });
 
   return (
     <Box>
@@ -82,15 +83,16 @@ export default function WithSubnavigation() {
           <IconButton
             onClick={onToggle}
             icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+              isOpen ? <CloseIcon w={4} h={4} /> : <HamburgerIcon w={6} h={6} />
             }
             variant={'ghost'}
             aria-label={'Toggle Navigation'}
+            role="button"
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Text
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+            textAlign={logoAlignment}
             fontFamily={'heading'}
             fontSize={'xl'}
             color="white"
@@ -108,6 +110,7 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}
+          display={showButtons}
         >
           {user ? (
             <Button
@@ -147,7 +150,7 @@ export default function WithSubnavigation() {
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
-        <MobileNav navItems={NAV_ITEMS} />
+        <MobileNav navItems={NAV_ITEMS} user={user} handleLogout={handleLogout} />
       </Collapse>
     </Box>
   );
@@ -178,23 +181,66 @@ const DesktopNav = ({ navItems }) => {
   );
 };
 
-const MobileNav = ({ navItems }) => {
+const MobileNav = ({ navItems, user, handleLogout }) => {
   return (
-    <Stack bg="#458471" p={4} display={{ md: 'none' }} align="center" spacing={6}>
-      {navItems.map((navItem) => (
-        <Box
-          key={navItem.label}
-          py={2}
-          as={Link}
-          to={navItem.href}
-          fontSize="md"
-          fontWeight="bold"
-          color="white"
-          textAlign="center"
-        >
-          {navItem.label}
-        </Box>
-      ))}
+    <Stack bg="#458471" p={4} display={{ md: 'none' }} direction="column" spacing={8} align="center">
+      <Stack spacing={4} align="center" width="100%">
+        {navItems.map((navItem) => (
+          <Box
+            key={navItem.label}
+            py={2}
+            as={Link}
+            to={navItem.href}
+            fontSize="md"
+            fontWeight="bold"
+            color="white"
+            textAlign="center"
+            w="100%"
+          >
+            {navItem.label}
+          </Box>
+        ))}
+      </Stack>
+
+      <Stack spacing={4} align="center" width="100%">
+        {user ? (
+          <Button
+            fontSize={'sm'}
+            fontWeight={600}
+            variant={'solid'}
+            colorScheme="gray"
+            onClick={handleLogout}
+            w="100%"
+          >
+            Deconectează-te
+          </Button>
+        ) : (
+          <>
+            <Button
+              as={Link}
+              fontSize={'sm'}
+              fontWeight={600}
+              variant={'solid'}
+              colorScheme="gray"
+              to="/signin"
+              w="100%"
+            >
+              Conectează-te
+            </Button>
+            <Button
+              as={Link}
+              fontSize={'sm'}
+              fontWeight={600}
+              variant={'solid'}
+              colorScheme="gray"
+              to="/signup"
+              w="100%"
+            >
+              Inscrie-te
+            </Button>
+          </>
+        )}
+      </Stack>
     </Stack>
   );
 };

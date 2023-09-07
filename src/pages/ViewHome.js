@@ -25,7 +25,7 @@ const ViewHome = () => {
   };
 
   return (
-    <VStack spacing={6} align="center" h="100vh">
+    <VStack spacing={6} align="center" w="100%">
       <Heading as="h1" size="2xl" mt={6}>
         Emaus Dristor
       </Heading>
@@ -38,6 +38,7 @@ const ViewHome = () => {
         bg="rgba(255,255,255,0.8)"
         boxShadow="md"
         p={4}
+        mb={12}
       >
         <Grid templateColumns={{ base: '1fr', md: '2fr 1fr' }} gap={6}>
           <Box p={2}>
@@ -53,7 +54,7 @@ const ViewHome = () => {
             pr={2} // Right padding
           >
             <Heading size={{ base: 'md', md: 'lg' }}>Emaus- Dristor, Sector 3</Heading>
-            <Text fontSize={{ base: 'sm', md: 'lg' }}>Garsoniera din zona Dristor dispune de  bucătărie tip open-space, baie complet utilată, alături de un spațiu de odihnă care poate fi amenajat după gustul fiecăruia. </Text>
+            <Text fontSize={{ base: 'sm', md: 'lg' }}>Garsoniera din zona Dristor dispune de bucătărie tip open-space, baie complet utilată, alături de un spațiu de odihnă care poate fi amenajat după gustul fiecăruia. </Text>
             <Box width={{ base: '90%', md: '80%' }} mt="2">
               <DatePicker
                 selected={startDate}
@@ -68,13 +69,12 @@ const ViewHome = () => {
               />
             </Box>
             <Button size="lg" variant="solid" colorScheme="blue" mt={4}>
-              Rezerva
+              Rezervă
             </Button>
             <Link
               href="#"
-
             >
-              Deschide adresa in Google Maps
+              Deschide adresa în Google Maps
             </Link>
           </VStack>
         </Grid>

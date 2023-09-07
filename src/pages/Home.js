@@ -40,7 +40,7 @@ export default function SplitScreen() {
               </Text>
               <br />
               <Text color={'blue.400'} as={'span'}>
-                Sprijin in timpul tratamentului
+                Sprijin în timpul tratamentului
               </Text>
             </Heading>
             <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
@@ -61,7 +61,7 @@ export default function SplitScreen() {
                 }}
                 to="/signup"
               >
-                Inscrie-te
+                Înscrie-te
               </Button>
             </Stack>
             <Text fontSize={{ base: 'md', lg: 'lg' }} mt={4} color={'black'}>

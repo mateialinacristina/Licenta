@@ -8,6 +8,7 @@ import {
   Avatar,
   HStack,
   VStack,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 
 // Sample data for conversations (this should ideally come from a database/API)
@@ -33,16 +34,19 @@ const sampleConversations = [
 ];
 
 const ConversationsList = ({ onConversationClick }) => {
+  const headingSize = useBreakpointValue({ base: "lg", md: "xl" }); // Adjust the heading size
+  const avatarSize = useBreakpointValue({ base: "md", md: "lg" });  // Adjust the avatar size
+
   return (
-    <Box w="100%" p={4} borderWidth="3px" borderColor="gray.300" borderRadius="md">
-      <Heading as="h2" size="xl" mb={4}>
+    <Box w="100%" p={4} borderWidth="3px" borderColor="gray.300" borderRadius="md" overflowX="hidden">
+      <Heading as="h2" size={headingSize} mb={4}>
         Conversations
       </Heading>
       <List spacing={4}>
         {sampleConversations.map((conversation, index, array) => (
           <ListItem 
             key={conversation.id}
-            borderBottomWidth={index === array.length - 1 ? '0px' : '1px'} // Skip the bottom border for the last item
+            borderBottomWidth={index === array.length - 1 ? '0px' : '1px'}
             borderColor="gray.300" 
             borderRadius="md" 
             p={4}
@@ -51,12 +55,12 @@ const ConversationsList = ({ onConversationClick }) => {
             onClick={() => onConversationClick(conversation.id)}
           >
             <HStack spacing={3}>
-              <Avatar name={conversation.patientName} />
-              <VStack align="start" spacing={1}>
-                <Text fontWeight="bold">
+              <Avatar name={conversation.patientName} size={avatarSize} />
+              <VStack align="start" spacing={1} w="100%">
+                <Text fontWeight="bold" noOfLines={1} fontSize={'lg'}>
                   {conversation.organizationName} & {conversation.patientName}
                 </Text>
-                <Text isTruncated maxWidth="300px">
+                <Text isTruncated w="100%">
                   {conversation.lastMessage}
                 </Text>
               </VStack>

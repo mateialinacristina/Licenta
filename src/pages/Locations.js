@@ -15,6 +15,8 @@ import {
   Button,
 } from '@chakra-ui/react';
 
+// const BeneficiaryComponent = await Requests();
+
 const cardInfo = [
   {
     title: 'Emaus Dristor',
@@ -180,7 +182,7 @@ const Locations = () => {
                   colorScheme="blue"
                   to={card.link}
                 >
-                  Vezi locatia
+                  Vezi locația
                 </Button>
               </CardFooter>
             </Card>

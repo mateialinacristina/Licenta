@@ -28,10 +28,10 @@ export default function Application() {
         <Stack spacing={4} flex={1} py={4} px={[4, 6]} maxW={['full', 'lg']}>
           <Stack align={'center'}>
             <Heading fontSize={['2xl', '4xl']} textAlign={'center'}>
-              Adauga-ti datele
+              Adaugă-ți datele
             </Heading>
             <Text fontSize={['md', 'lg']} color={'gray.600'}>
-              Te rugam sa adaugi toate detaliile necesare!
+              Te rugăm să adaugi toate detaliile necesare!
             </Text>
           </Stack>
           <Box
@@ -59,16 +59,9 @@ export default function Application() {
                 <FormLabel>Telefon</FormLabel>
                 <Input type="text" />
               </FormControl>
-              <FormControl id="caretaker" isRequired>
-                <FormLabel>Vei veni cu insotitor?</FormLabel>
-                <Select placeholder="Alege o optiune">
-                  <option value="yes">Da</option>
-                  <option value="no">Nu</option>
-                </Select>
-              </FormControl>
               <FormControl id="medical-files" isRequired>
                 <FormLabel>
-                  Ataseaza-ti documentele necesare anchetei sociale
+                  Atasează-ți documentele necesare anchetei sociale
                 </FormLabel>
                 <Input
                   type="file"
@@ -78,7 +71,7 @@ export default function Application() {
               </FormControl>
               <FormControl id="details">
                 <FormLabel>
-                  Ofera mai multe detalii despre situatia ta
+                  Oferă mai multe detalii despre situația ta
                 </FormLabel>
                 <Textarea placeholder="Scrie aici..." size="md" />
               </FormControl>
@@ -113,7 +106,7 @@ export default function Application() {
             {' '}
             {/* Adjust the mt value to align with "Nume" and "Prenume" fields */}
             <Text fontSize="md" mb={2}>
-              <strong>*</strong> Campurile marcate cu * sunt obligatorii!
+              <strong>*</strong> Câmpurile marcate cu * sunt obligatorii!
             </Text>
             <Text fontSize="md" mb={2}>
               <strong>**</strong> Documentele necesare anchetei sociale sunt:
@@ -122,11 +115,11 @@ export default function Application() {
               - buletin sau C.I;
             </Text>
             <Text fontSize="md" mb={2}>
-              - ultimele documente medicale care sa ateste boala sau ultimele
-              documente de iesire din spital sau documentul doveditor trimiterii
-              la tratament in orasul selectat;
+              - ultimele documente medicale care să ateste boala sau ultimele
+              documente de ieșire din spital sau documentul doveditor trimiterii
+              la tratament in orașul selectat;
             </Text>
-            <Text fontSize="md">- adeverinta de venit sau cupon de pensie</Text>
+            <Text fontSize="md">- adeverință de venit sau cupon de pensie</Text>
           </Stack>
         </Box>
       </Flex>

@@ -12,6 +12,14 @@ import {
   Tag,
   Heading,
   Stack,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  Button,
+  useBreakpointValue
 } from '@chakra-ui/react';
 
 export default function Reservations() {
@@ -81,13 +89,36 @@ export default function Reservations() {
     }
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedDecision, setSelectedDecision] = useState(null);
+  const [selectedReservationId, setSelectedReservationId] = useState(null);
+
+  const onClose = () => setIsOpen(false);
+  const cancelRef = React.useRef();
+
+  const openConfirmation = (decision, reservationId) => {
+    setSelectedDecision(decision);
+    setSelectedReservationId(reservationId);
+    setIsOpen(true);
+  }
+
+  const confirmDecision = () => {
+    handleAcceptanceChange(selectedDecision, selectedReservationId);
+    onClose();
+  }
+
+  const tableStyle = useBreakpointValue({
+    base: { fontSize: 'sm', overflowX: 'scroll' },
+    md: { fontSize: 'md' },
+  });
+
   return (
     <VStack p={4} mx={4} rounded="md" spacing={4}>
       <Heading as="h1" size="xl" pb={4}>
         Gestioneaza rezervarile
       </Heading>
       <Box w="100%" p="4" bg="white" rounded="md">
-        <Table variant="simple" pt={4}>
+      <Table variant="simple" pt={4} {...tableStyle}>
           <Thead>
             <Tr>
               <Th>Numele beneficiarului</Th>
@@ -112,26 +143,16 @@ export default function Reservations() {
                   </a>
                 </Td>
                 <Td>
-                  <Stack spacing={4} direction="row">
+                <Stack spacing={4} direction="row">
                     <Checkbox
                       isChecked={reservation.acceptance === true}
-                      onChange={e =>
-                        handleAcceptanceChange(
-                          e.target.checked ? true : null,
-                          reservation.id
-                        )
-                      }
+                      onChange={() => openConfirmation(true, reservation.id)}
                     >
                       Accepta
                     </Checkbox>
                     <Checkbox
                       isChecked={reservation.acceptance === false}
-                      onChange={e =>
-                        handleAcceptanceChange(
-                          e.target.checked ? false : null,
-                          reservation.id
-                        )
-                      }
+                      onChange={() => openConfirmation(false, reservation.id)}
                     >
                       Respinge
                     </Checkbox>
@@ -143,6 +164,33 @@ export default function Reservations() {
           </Tbody>
         </Table>
       </Box>
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Confirmare
+            </AlertDialogHeader>
+            <AlertDialogBody>
+              {selectedDecision ? 
+                "Sunteti sigur ca doriti sa acceptati cererea de cazare?" : 
+                "Sunteti sigur ca doriti sa respingeti cererea de cazare?"
+              }
+            </AlertDialogBody>
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Anuleaza
+              </Button>
+              <Button colorScheme="red" onClick={confirmDecision} ml={3}>
+                Da, sunt sigur
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </VStack>
   );
 }
