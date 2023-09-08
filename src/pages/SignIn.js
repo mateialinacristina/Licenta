@@ -83,7 +83,6 @@ export default function SignIn() {
                 align={'start'}
                 justify={'space-between'}
               >
-                <Text color={'blue.400'}>Ai uitat parola?</Text>
               </Stack>
               <Button
                 onClick={handleSignIn}

@@ -34,7 +34,7 @@ const Footer = ({ inputMessage, setInputMessage, handleSendMessage }) => {
         width={['100%', 'auto']}
         fontSize={['md', 'md', 'lg']}
       >
-        Send
+        Trimite
       </Button>
     </Flex>
   );

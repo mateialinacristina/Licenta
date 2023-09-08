@@ -50,8 +50,8 @@ const ViewHome = () => {
             alignItems="center"
             justifyContent="center"
             h="full"
-            pl={2} // Left padding
-            pr={2} // Right padding
+            pl={2} 
+            pr={2} 
           >
             <Heading size={{ base: 'md', md: 'lg' }}>Emaus- Dristor, Sector 3</Heading>
             <Text fontSize={{ base: 'sm', md: 'lg' }}>Garsoniera din zona Dristor dispune de bucătărie tip open-space, baie complet utilată, alături de un spațiu de odihnă care poate fi amenajat după gustul fiecăruia. </Text>

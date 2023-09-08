@@ -119,7 +119,10 @@ export default function Application() {
               documente de ieșire din spital sau documentul doveditor trimiterii
               la tratament in orașul selectat;
             </Text>
-            <Text fontSize="md">- adeverință de venit sau cupon de pensie</Text>
+            <Text fontSize="md" mb={2}>- adeverință de venit sau cupon de pensie</Text>
+            <Text fontSize="md" mb={2}>
+              <strong>***</strong> Toate actele trebuie încarcate într-un singur fișier pdf!
+            </Text>
           </Stack>
         </Box>
       </Flex>

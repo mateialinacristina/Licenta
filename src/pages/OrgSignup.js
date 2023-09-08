@@ -58,7 +58,7 @@ export default function OrgSignup() {
         <Stack spacing={4} flex={1} py={4} px={[4, 6]} maxW={['full', 'lg']}>
           <Stack align={'center'}>
             <Heading fontSize={'4xl'} textAlign={'center'}>
-              Inscrie-te
+              Înscrie-te
             </Heading>
           </Stack>
           <Box
@@ -70,12 +70,12 @@ export default function OrgSignup() {
             {showErrorAlert && (
               <Alert status="error" mb={4}>
                 <AlertIcon />
-                Completeaza toate campurile obligatorii!
+                Completează toate câmpurile obligatorii!
               </Alert>
             )}
             <Stack spacing={4}>
               <FormControl id="orgName" isRequired>
-                <FormLabel>Numele organizatiei</FormLabel>
+                <FormLabel>Numele organizației</FormLabel>
                 <Input
                   type="text"
                   value={orgName}
@@ -99,7 +99,7 @@ export default function OrgSignup() {
                 />
               </FormControl>
               <FormControl id="email" isRequired>
-                <FormLabel>Emailul organizatiei</FormLabel>
+                <FormLabel>Emailul organizației</FormLabel>
                 <Input
                   type="email"
                   value={email}
@@ -128,7 +128,7 @@ export default function OrgSignup() {
               </FormControl>
               <FormControl id="orgDocuments" isRequired>
                 <FormLabel>
-                  Ataseaza documentele oficiale ale organizatiei care ii atesta
+                  Atașează documentele oficiale ale organizației care îi atestă
                   veridicitatea
                 </FormLabel>
                 <Input
@@ -148,14 +148,14 @@ export default function OrgSignup() {
                   }}
                   onClick={handleSignUp}
                 >
-                  Inscrie-te
+                  Înscrie-te
                 </Button>
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
                   Ai deja cont?{' '}
                   <Link color={'blue.400'} href="/orgsignin">
-                    Conecteaza-te
+                    Conectează-te
                   </Link>
                 </Text>
               </Stack>
@@ -183,6 +183,9 @@ export default function OrgSignup() {
             </Text>
             <Text fontSize="lg" mb={2}>
               - statutul asociatiei (inregistrarea juridica);
+            </Text>
+            <Text fontSize="md" mb={2}>
+              <strong>***</strong> Toate actele trebuie încarcate într-un singur fișier pdf!
             </Text>
           </Stack>
         </Box>

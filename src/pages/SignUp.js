@@ -170,7 +170,7 @@ export default function SignUp() {
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
-                  Ai deja cont? <Link color={'blue.400'} href="/signin">Conecteaza-te</Link>
+                  Ai deja cont? <Link color={'blue.400'} href="/signin">Conectează-te</Link>
                 </Text>
               </Stack>
             </Stack>

@@ -19,8 +19,11 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   Button,
-  useBreakpointValue
+  IconButton,
+  useBreakpointValue,
+  Icon,
 } from '@chakra-ui/react';
+import { DownloadIcon } from '@chakra-ui/icons';
 
 export default function Reservations() {
   // Sample reservation data, replace this with your actual data fetched from API
@@ -31,6 +34,7 @@ export default function Reservations() {
       datesForHousing: '01 Jan - 07 Jan',
       documents: '/docs/doc1.pdf',
       acceptance: null,
+      isDecisionFinal: false,
     },
     {
       id: 2,
@@ -38,6 +42,7 @@ export default function Reservations() {
       datesForHousing: '15 Feb - 21 Feb',
       documents: '/docs/doc2.pdf',
       acceptance: null,
+      isDecisionFinal: false,
     },
     {
       id: 3,
@@ -45,6 +50,7 @@ export default function Reservations() {
       datesForHousing: '10 Mar - 13 Mar ',
       documents: '/docs/doc2.pdf',
       acceptance: null,
+      isDecisionFinal: false,
     },
     {
       id: 4,
@@ -52,6 +58,7 @@ export default function Reservations() {
       datesForHousing: '5 Feb - 8 Feb',
       documents: '/docs/doc2.pdf',
       acceptance: null,
+      isDecisionFinal: false,
     },
   ]);
 
@@ -61,17 +68,19 @@ export default function Reservations() {
         return {
           ...reservation,
           acceptance: value,
+          isDecisionFinal: true, // Set the flag when a decision is made
         };
       }
       return reservation;
     });
     setReservations(updatedReservations);
   };
+
   const getStatusTag = acceptance => {
     if (acceptance === null) {
       return (
         <Tag size={'md'} variant="solid" colorScheme="orange">
-          In asteptare
+          In așteptare
         </Tag>
       );
     } else if (acceptance) {
@@ -100,30 +109,39 @@ export default function Reservations() {
     setSelectedDecision(decision);
     setSelectedReservationId(reservationId);
     setIsOpen(true);
-  }
+  };
 
   const confirmDecision = () => {
     handleAcceptanceChange(selectedDecision, selectedReservationId);
     onClose();
-  }
+  };
 
   const tableStyle = useBreakpointValue({
     base: { fontSize: 'sm', overflowX: 'scroll' },
     md: { fontSize: 'md' },
   });
 
+  const displayType = useBreakpointValue({ base: 'mobile', md: 'desktop' });
+  const isMobile = displayType === 'mobile';
+
   return (
     <VStack p={4} mx={4} rounded="md" spacing={4}>
       <Heading as="h1" size="xl" pb={4}>
-        Gestioneaza rezervarile
+        Gestionează rezervările
       </Heading>
-      <Box w="100%" p="4" bg="white" rounded="md">
-      <Table variant="simple" pt={4} {...tableStyle}>
+      <Box
+        w="100%"
+        p="4"
+        bg="white"
+        rounded="md"
+        overflowX={isMobile ? 'scroll' : 'visible'}
+      >
+        <Table variant="simple" pt={4}>
           <Thead>
             <Tr>
               <Th>Numele beneficiarului</Th>
-              <Th>Data cazarii</Th>
-              <Th>Documente</Th>
+              <Th>Data cazării</Th>
+              {!isMobile && <Th>Documente</Th>}
               <Th>Decizie cerere</Th>
               <Th>Status</Th>
             </Tr>
@@ -133,25 +151,40 @@ export default function Reservations() {
               <Tr key={reservation.id}>
                 <Td>{reservation.patientName}</Td>
                 <Td>{reservation.datesForHousing}</Td>
+                {isMobile ? (
+                  <Td>
+                    <IconButton
+                      icon={<Icon as={DownloadIcon} />}
+                      variant="ghost"
+                      aria-label="Download Document"
+                      href={reservation.documents}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    />
+                  </Td>
+                ) : (
+                  <Td>
+                    <a
+                      href={reservation.documents}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download
+                    </a>
+                  </Td>
+                )}
                 <Td>
-                  <a
-                    href={reservation.documents}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download
-                  </a>
-                </Td>
-                <Td>
-                <Stack spacing={4} direction="row">
+                  <Stack spacing={4} direction="row">
                     <Checkbox
                       isChecked={reservation.acceptance === true}
+                      isDisabled={reservation.isDecisionFinal} // Disable checkbox based on the flag
                       onChange={() => openConfirmation(true, reservation.id)}
                     >
-                      Accepta
+                      Acceptă
                     </Checkbox>
                     <Checkbox
                       isChecked={reservation.acceptance === false}
+                      isDisabled={reservation.isDecisionFinal} // Disable checkbox based on the flag
                       onChange={() => openConfirmation(false, reservation.id)}
                     >
                       Respinge
@@ -175,10 +208,9 @@ export default function Reservations() {
               Confirmare
             </AlertDialogHeader>
             <AlertDialogBody>
-              {selectedDecision ? 
-                "Sunteti sigur ca doriti sa acceptati cererea de cazare?" : 
-                "Sunteti sigur ca doriti sa respingeti cererea de cazare?"
-              }
+              {selectedDecision
+                ? 'Sunteti sigur ca doriti sa acceptati cererea de cazare?'
+                : 'Sunteti sigur ca doriti sa respingeti cererea de cazare?'}
             </AlertDialogBody>
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>

@@ -40,7 +40,7 @@ const ConversationsList = ({ onConversationClick }) => {
   return (
     <Box w="100%" p={4} borderWidth="3px" borderColor="gray.300" borderRadius="md" overflowX="hidden">
       <Heading as="h2" size={headingSize} mb={4}>
-        Conversations
+        Conversații
       </Heading>
       <List spacing={4}>
         {sampleConversations.map((conversation, index, array) => (

@@ -30,7 +30,7 @@ export default function AddLocationCard() {
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={6} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
-            Adauga o locatie
+            Adaugă o locație
           </Heading>
         </Stack>
         <Box
@@ -41,28 +41,28 @@ export default function AddLocationCard() {
         >
           <Stack spacing={4}>
             <FormControl id="city" isRequired>
-              <FormLabel>Selecteaza orasul</FormLabel>
+              <FormLabel>Selectează orașul</FormLabel>
               <Select placeholder="Alege un oras">
                 <option value="Bucuresti">Bucuresti</option>
                 <option value="Iasi">Iasi</option>
               </Select>
             </FormControl>
             <FormControl id="photos" isRequired>
-              <FormLabel>Adauga poze cu locatia</FormLabel>
+              <FormLabel>Adaugă poze cu locația</FormLabel>
               <Input type="file" multiple />
             </FormControl>
             <FormControl id="address" isRequired>
-              <FormLabel>Adauga adresa completa a locatiei</FormLabel>
+              <FormLabel>Adaugă adresa completă a locației</FormLabel>
               <Input type="text" />
             </FormControl>
             <FormControl id="googleMapsLink" isRequired>
               <FormLabel>
-                Adauga link-ul de Google Maps catre locatie
+                Adaugă link-ul de Google Maps către locație
               </FormLabel>
               <Input type="text" />
             </FormControl>
             <FormControl id="availabilityDate" isRequired>
-              <FormLabel>Specifica disponibilitatea locatiei</FormLabel>
+              <FormLabel>Specifică disponibilitatea locației</FormLabel>
               <Box width="80%" mt="2">
                 <DatePicker
                   selected={startDate}
@@ -78,7 +78,7 @@ export default function AddLocationCard() {
               </Box>
             </FormControl>
             <FormControl id="details" isRequired>
-              <FormLabel>Adauga detalii despre locatie</FormLabel>
+              <FormLabel>Adaugă detalii despre locație</FormLabel>
               <Textarea placeholder="Scrie aici.." resize="none" />
             </FormControl>
             <Button
@@ -91,7 +91,7 @@ export default function AddLocationCard() {
                 bg: 'blue.500',
               }}
             >
-              Salveaza
+              Salvează
             </Button>
           </Stack>
         </Box>

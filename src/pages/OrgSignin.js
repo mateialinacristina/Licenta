@@ -64,7 +64,6 @@ import {
                   direction={{ base: 'column', sm: 'row' }}
                   align={'start'}
                   justify={'space-between'}>
-                  <Text color={'blue.400'}>Ai uitat parola?</Text>
                 </Stack>
                 <Button
                   bg={'blue.400'}
@@ -73,7 +72,7 @@ import {
                     bg: 'blue.500',
                   }}
                   onClick={handleSignIn}>
-                  Conecteaza-te
+                  Conectează-te
                 </Button>
               </Stack>
             </Stack>
