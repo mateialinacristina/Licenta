@@ -13,10 +13,35 @@ import {
 } from '@chakra-ui/react';
 import ChatPopup from '../components/ChatPopup';
 import ImgGallery from '../components/ImgGallery';
+import { useParams } from 'react-router-dom';
+import {fetchSpecificLocation} from '../axios/RequestsLocations'
+import { useEffect } from 'react';
+
 
 const ViewHome = () => {
+  const params = useParams();
+
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
+  const [data, setData] = useState([]);
+  const [res, setRes] = useState([]);
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const result = await fetchSpecificLocation(params.id);
+                setData(result.location);
+                setRes(result.reserveds)   //reservation !!!!!!!!!!!!!! TO DO
+                //setCities(result["citys"])
+                //console.log(result);
+            } catch (error) {
+                console.error("There was an error:", error);
+            }
+        }
+
+        fetchData();
+      }, []);
+    console.log(data);
 
   const handleDateChange = dates => {
     const [start, end] = dates;

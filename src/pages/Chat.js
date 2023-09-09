@@ -1,11 +1,13 @@
 import { Flex, useColorModeValue, Box } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Divider from '../components/ChatDivider';
 import Footer from '../components/ChatFooter';
 import Header from '../components/ChatHeader';
 import Messages from '../components/Messages';
 import ConversationsList from '../components/ConversationsList';
 import { useBreakpointValue } from '@chakra-ui/react';
+import { fetchOrganizationChat } from '../axios/RequestsOrganization';
+import Cookies from 'js-cookie';
 
 const Chat = () => {
   const breakpoint = useBreakpointValue({ base: 'base', md: 'md', lg: 'lg' });
@@ -15,6 +17,23 @@ const Chat = () => {
   const handleConversationClick = id => {
     setSelectedChatId(id);
   };
+
+  const [data, setData] = useState([]);
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                // trebuie adaugat in cookiie si id organizator sau beneficiar la login
+                const result = await fetchOrganizationChat(Cookies.get("id"));
+                setData(result);
+                console.log(result);
+            } catch (error) {
+                console.error("There was an error:", error);
+            }
+        }
+
+        fetchData();
+      }, []);
+      console.log(data);
 
   const bgColor = useColorModeValue('gray.50', 'gray.800');
   const [messages, setMessages] = useState([

@@ -20,17 +20,30 @@ import {
   AlertIcon,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { fetchRegisterBeneficiary } from '../axios/RequestsAuthenticate';
+
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { login } = useUserType();
 
+  async function handleSubmit() {
+    try {
+        console.log(formData);
+        await fetchRegisterBeneficiary(formData);
+    } catch (error) {
+        console.error("Error during registration:", error);
+        
+    }
+}
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
+    confirmPassword: '',
   });
 
   const handleInputChange = e => {
@@ -43,39 +56,39 @@ export default function SignUp() {
 
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log("handleSubmit is triggered");
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   console.log("handleSubmit is triggered");
 
-    if (
-      !formData.firstName.trim() ||
-      !formData.email.trim() ||
-      !formData.password.trim()
-    ) {
-      setShowErrorAlert(true);
-      console.log('One or more required fields are empty.');
-      return;
-    } else {
-      setShowErrorAlert(false);
-    }
+  //   if (
+  //     !formData.firstName.trim() ||
+  //     !formData.email.trim() ||
+  //     !formData.password.trim()
+  //   ) {
+  //     setShowErrorAlert(true);
+  //     console.log('One or more required fields are empty.');
+  //     return;
+  //   } else {
+  //     setShowErrorAlert(false);
+  //   }
 
-    if (
-      formData.email === 'user@test.com' &&
-      formData.password === 'password'
-    ) {
-      login({ role: 'user' });
-      navigate("/locations");
-      console.log('Mockup signup successful for user!');
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-      });
-    } else {
-      console.error('Invalid signup credentials!');
-    }
-  };
+  //   if (
+  //     formData.email === 'user@test.com' &&
+  //     formData.password === 'password'
+  //   ) {
+  //     login({ role: 'user' });
+  //     navigate("/locations");
+  //     console.log('Mockup signup successful for user!');
+  //     setFormData({
+  //       firstName: '',
+  //       lastName: '',
+  //       email: '',
+  //       password: '',
+  //     });
+  //   } else {
+  //     console.error('Invalid signup credentials!');
+  //   }
+  // };
 
   return (
     <Flex align={'center'} justify={'center'} minH="calc(100vh - 120px)">
@@ -154,9 +167,30 @@ export default function SignUp() {
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
+              <FormControl id="confirmPassword" isRequired>
+                <FormLabel>Confirma parola</FormLabel>
+                <InputGroup>
+                  <Input
+                    name="confirmPassword"
+                    type={showPassword ? 'text' : 'password'}
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                  />
+                  <InputRightElement h={'full'}>
+                    <Button
+                      variant={'ghost'}
+                      onClick={() =>
+                        setShowPassword(showPassword => !showPassword)
+                      }
+                    >
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
               <Stack spacing={10} pt={2}>
                 <Button
-                  onClick={handleSubmit} // Using onClick temporarily
+                  onClick={handleSubmit} 
                   loadingText="Submitting"
                   size="lg"
                   bg={'blue.400'}

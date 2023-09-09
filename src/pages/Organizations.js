@@ -8,6 +8,8 @@ import {
   useColorModeValue,
   SimpleGrid,
 } from '@chakra-ui/react';
+import { fetchOrganization } from '../axios/RequestsOrganization';
+import { useState, useEffect } from 'react';
 
 const organizations = [
   {
@@ -66,9 +68,30 @@ const organizations = [
   },
 ];
 
+
 export default function Organizations() {
   const bgColor = useColorModeValue('white', 'gray.900');
   const headingColor = useColorModeValue('gray.700', 'white');
+
+////////////
+
+const [data, setData] = useState([]);
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const result = await fetchOrganization();
+                setData(result);
+                //console.log(result);
+            } catch (error) {
+                console.error("There was an error:", error);
+            }
+        }
+
+        fetchData();
+      }, []);
+console.log(data)
+/////////////
+
 
   return (
     <Center py={6}>

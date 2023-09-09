@@ -13,6 +13,8 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { fetchLogin } from '../axios/RequestsAuthenticate';
+
 
 export default function SignIn() {
   const { login } = useUserType();
@@ -22,6 +24,11 @@ export default function SignIn() {
     password: '',
   });
 
+  async function handleSignIn(){
+    console.log(credentials)
+    await fetchLogin(credentials);
+  }
+
   const handleChange = e => {
     const { name, value } = e.target;
     setCredentials(prev => ({
@@ -30,20 +37,20 @@ export default function SignIn() {
     }));
   };
 
-  const handleSignIn = async () => {
-    if (
-      credentials.email === 'user@test.com' &&
-      credentials.password === 'password'
-    ) {
-      const userObj = {
-        email: credentials.email,
-        role: 'user',
-      };
-      login(userObj, navigate);
-    } else {
-      console.error('Invalid credentials!');
-    }
-  };
+  // const handleSignIn = async () => {
+  //   if (
+  //     credentials.email === 'user@test.com' &&
+  //     credentials.password === 'password'
+  //   ) {
+  //     const userObj = {
+  //       email: credentials.email,
+  //       role: 'user',
+  //     };
+  //     login(userObj, navigate);
+  //   } else {
+  //     console.error('Invalid credentials!');
+  //   }
+  // };
 
   return (
     <Flex align={'center'} justify={'center'} minH="calc(100vh - 120px)">

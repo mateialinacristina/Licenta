@@ -12,7 +12,6 @@ import Locations from './pages/Locations';
 import ViewHome from './pages/ViewHome';
 import Application from './pages/Application';
 import OrgSignup from './pages/OrgSignup';
-import OrgSignin from './pages/OrgSignin';
 import AddLocation from './pages/AddLocation';
 import Chat from './pages/Chat';
 import Organizations from './pages/Organizations';
@@ -32,10 +31,9 @@ function App() {
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/locations" element={<Locations />} />
-              <Route path="/viewhome" element={<ViewHome />} />
+              <Route path="/viewhome/:id" element={<ViewHome />} />
               <Route path="/application" element={<Application />} />
               <Route path="/orgsignup" element={<OrgSignup />} />
-              <Route path="/orgsignin" element={<OrgSignin />} />
               <Route path="/addlocation" element={<AddLocation />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/reservations" element={<Reservations />} />

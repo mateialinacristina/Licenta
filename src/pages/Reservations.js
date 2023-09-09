@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   Thead,
@@ -24,14 +24,47 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { DownloadIcon } from '@chakra-ui/icons';
+import { fetchOrganizationRequests, fetchOrganizationRequestsResponse } from '../axios/RequestsOrganization';
+import Cookies from 'js-cookie';
 
 export default function Reservations() {
+
+  const [data, setData] = useState([]);
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const result = await fetchOrganizationRequests(1); //Cookies.get("id")
+                setData(result);
+                console.log(result);
+            } catch (error) {
+                console.error("There was an error:", error);
+            }
+        }
+        fetchData();
+      }, []);
+      console.log(data);
+
+      const[id, setId] = useState();
+      const[isApprove, setIsApprove] = useState()
+    
+      async function ChangeStatusRequest(){
+        //id si isApprove trebuie adaugate
+        const body = {
+          id: 4,
+          isApprove: false
+        }
+          await fetchOrganizationRequestsResponse(4, true);
+        }
+
+
+
   // Sample reservation data, replace this with your actual data fetched from API
   const [reservations, setReservations] = useState([
     {
       id: 1,
       patientName: 'Maria Popa',
       datesForHousing: '01 Jan - 07 Jan',
+      adresa: "str. Elev Stefan Stefanescu nr 5",
       documents: '/docs/doc1.pdf',
       acceptance: null,
       isDecisionFinal: false,
@@ -40,6 +73,7 @@ export default function Reservations() {
       id: 2,
       patientName: 'Ion Neagu',
       datesForHousing: '15 Feb - 21 Feb',
+      adresa: "str. Elev Stefan Stefanescu nr 5",
       documents: '/docs/doc2.pdf',
       acceptance: null,
       isDecisionFinal: false,
@@ -48,6 +82,7 @@ export default function Reservations() {
       id: 3,
       patientName: 'Stefan Giurgea',
       datesForHousing: '10 Mar - 13 Mar ',
+      adresa: "str. Elev Stefan Stefanescu nr 5",
       documents: '/docs/doc2.pdf',
       acceptance: null,
       isDecisionFinal: false,
@@ -56,6 +91,7 @@ export default function Reservations() {
       id: 4,
       patientName: 'Ioana Matei',
       datesForHousing: '5 Feb - 8 Feb',
+      adresa: "str. Elev Stefan Stefanescu nr 5",
       documents: '/docs/doc2.pdf',
       acceptance: null,
       isDecisionFinal: false,
@@ -141,6 +177,7 @@ export default function Reservations() {
             <Tr>
               <Th>Numele beneficiarului</Th>
               <Th>Data cazării</Th>
+              <Th>Adresa</Th>
               {!isMobile && <Th>Documente</Th>}
               <Th>Decizie cerere</Th>
               <Th>Status</Th>
@@ -151,6 +188,7 @@ export default function Reservations() {
               <Tr key={reservation.id}>
                 <Td>{reservation.patientName}</Td>
                 <Td>{reservation.datesForHousing}</Td>
+                <Td>{reservation.address}</Td>
                 {isMobile ? (
                   <Td>
                     <IconButton
@@ -177,14 +215,14 @@ export default function Reservations() {
                   <Stack spacing={4} direction="row">
                     <Checkbox
                       isChecked={reservation.acceptance === true}
-                      isDisabled={reservation.isDecisionFinal} // Disable checkbox based on the flag
+                      isDisabled={reservation.isDecisionFinal} 
                       onChange={() => openConfirmation(true, reservation.id)}
                     >
                       Acceptă
                     </Checkbox>
                     <Checkbox
                       isChecked={reservation.acceptance === false}
-                      isDisabled={reservation.isDecisionFinal} // Disable checkbox based on the flag
+                      isDisabled={reservation.isDecisionFinal} 
                       onChange={() => openConfirmation(false, reservation.id)}
                     >
                       Respinge

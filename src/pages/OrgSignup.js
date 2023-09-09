@@ -33,13 +33,30 @@ export default function OrgSignup() {
   const { login } = useUserType();
   const navigate = useNavigate();
 
-  const handleSignUp = () => {
-    if (orgName && email && password && files.length && phone && city) {
-      login({ role: 'organization' }, navigate); // Sign up as organization
-    } else {
-      setShowErrorAlert(true);
-    }
-  };
+  async function handleSignUp(){
+    const fromData = new FormData();
+    fromData.append("name", orgName);
+    fromData.append("phoneNumber", phone);
+    fromData.append("city", city);
+    fromData.append("file", files);
+    fromData.append("logo", files);
+    fromData.append("confirmPassword", password);
+    fromData.append("email", email);
+    fromData.append("password", password);
+
+    console.log(fromData);
+    await fetchRegisterOrganization(fromData);
+
+    // dupa care sa fie redirectionat
+  }
+
+  // const handleSignUp = () => {
+  //   if (orgName && email && password && files.length && phone && city) {
+  //     login({ role: 'organization' }, navigate); // Sign up as organization
+  //   } else {
+  //     setShowErrorAlert(true);
+  //   }
+  // };
 
   return (
     <Flex
@@ -123,8 +140,39 @@ export default function OrgSignup() {
                     >
                       {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                     </Button>
+                    
                   </InputRightElement>
                 </InputGroup>
+              </FormControl>
+              <FormControl id="confirmPassword" isRequired>
+                <FormLabel>Confirma parola</FormLabel>
+                <InputGroup>
+                  <Input
+                    type={showPassword ? 'text' : 'password'}
+                    value={confirmPassword}
+                    onChange={e => setPassword(e.target.value)}
+                  />
+                  <InputRightElement h={'full'}>
+                    <Button
+                      variant={'ghost'}
+                      onClick={() =>
+                        setShowPassword(showPassword => !showPassword)
+                      }
+                    >
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                    
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <FormControl id="orgLogo" isRequired>
+                <FormLabel>
+                  Atașează logo-ul organizatiei
+                </FormLabel>
+                <Input
+                  type="logo"
+                  onChange={e => setFiles(e.target.files)}
+                />
               </FormControl>
               <FormControl id="orgDocuments" isRequired>
                 <FormLabel>
