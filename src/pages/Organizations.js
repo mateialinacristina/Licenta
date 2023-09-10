@@ -89,7 +89,7 @@ const [data, setData] = useState([]);
 
         fetchData();
       }, []);
-console.log(data)
+      
 /////////////
 
 

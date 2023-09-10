@@ -33,7 +33,7 @@ export default function Reservations() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const result = await fetchOrganizationRequests(1); //Cookies.get("id")
+                const result = await fetchOrganizationRequests(Cookies.get("primarySid")); 
                 setData(result);
                 console.log(result);
             } catch (error) {
@@ -45,75 +45,76 @@ export default function Reservations() {
       console.log(data);
 
       const[id, setId] = useState();
-      const[isApprove, setIsApprove] = useState()
+      //const[isApprove, setIsApprove] = useState()
     
-      async function ChangeStatusRequest(){
-        //id si isApprove trebuie adaugate
-        const body = {
-          id: 4,
-          isApprove: false
-        }
-          await fetchOrganizationRequestsResponse(4, true);
-        }
+      // async function ChangeStatusRequest(){
+      //   //id si isApprove trebuie adaugate
+      //   const body = {
+      //     id: 4,
+      //     isApprove: false
+      //   }
+      //     await fetchOrganizationRequestsResponse(4, true);
+      //   }
 
 
 
   // Sample reservation data, replace this with your actual data fetched from API
-  const [reservations, setReservations] = useState([
-    {
-      id: 1,
-      patientName: 'Maria Popa',
-      datesForHousing: '01 Jan - 07 Jan',
-      adresa: "str. Elev Stefan Stefanescu nr 5",
-      documents: '/docs/doc1.pdf',
-      acceptance: null,
-      isDecisionFinal: false,
-    },
-    {
-      id: 2,
-      patientName: 'Ion Neagu',
-      datesForHousing: '15 Feb - 21 Feb',
-      adresa: "str. Elev Stefan Stefanescu nr 5",
-      documents: '/docs/doc2.pdf',
-      acceptance: null,
-      isDecisionFinal: false,
-    },
-    {
-      id: 3,
-      patientName: 'Stefan Giurgea',
-      datesForHousing: '10 Mar - 13 Mar ',
-      adresa: "str. Elev Stefan Stefanescu nr 5",
-      documents: '/docs/doc2.pdf',
-      acceptance: null,
-      isDecisionFinal: false,
-    },
-    {
-      id: 4,
-      patientName: 'Ioana Matei',
-      datesForHousing: '5 Feb - 8 Feb',
-      adresa: "str. Elev Stefan Stefanescu nr 5",
-      documents: '/docs/doc2.pdf',
-      acceptance: null,
-      isDecisionFinal: false,
-    },
-  ]);
+  // const [reservations, setReservations] = useState([
+  //   {
+  //     id: 1,
+  //     patientName: 'Maria Popa',
+  //     datesForHousing: '01 Jan - 07 Jan',
+  //     address: "str. Elev Stefan Stefanescu nr 5",
+  //     documents: '/docs/doc1.pdf',
+  //     acceptance: null,
+  //     isDecisionFinal: false,
+  //   },
+  //   {
+  //     id: 2,
+  //     patientName: 'Ion Neagu',
+  //     datesForHousing: '15 Feb - 21 Feb',
+  //     address: "str. Elev Stefan Stefanescu nr 5",
+  //     documents: '/docs/doc2.pdf',
+  //     acceptance: null,
+  //     isDecisionFinal: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     patientName: 'Stefan Giurgea',
+  //     datesForHousing: '10 Mar - 13 Mar ',
+  //     address: "str. Elev Stefan Stefanescu nr 5",
+  //     documents: '/docs/doc2.pdf',
+  //     acceptance: null,
+  //     isDecisionFinal: false,
+  //   },
+  //   {
+  //     id: 4,
+  //     patientName: 'Ioana Matei',
+  //     datesForHousing: '5 Feb - 8 Feb',
+  //     address: "str. Elev Stefan Stefanescu nr 5",
+  //     documents: '/docs/doc2.pdf',
+  //     acceptance: null,
+  //     isDecisionFinal: false,
+  //   },
+  // ]);
 
-  const handleAcceptanceChange = (value, id) => {
-    const updatedReservations = reservations.map(reservation => {
-      if (reservation.id === id) {
-        return {
-          ...reservation,
-          acceptance: value,
-          isDecisionFinal: true, // Set the flag when a decision is made
-        };
-      }
-      return reservation;
-    });
-    setReservations(updatedReservations);
-  };
+  // const handleAcceptanceChange = (value, id) => {
+  //   const updatedReservations = reservations.map(reservation => {
+  //     if (reservation.id === id) {
+  //       return {
+  //         ...reservation,
+  //         acceptance: value,
+  //         isDecisionFinal: true, // Set the flag when a decision is made
+  //       };
+  //     }
+  //     return reservation;
+  //   });
+  //   setReservations(updatedReservations);
+  // };
 
-  const getStatusTag = acceptance => {
-    if (acceptance === null) {
+  const getStatusTag = (acceptance) => {
+
+    if (acceptance === undefined) {
       return (
         <Tag size={'md'} variant="solid" colorScheme="orange">
           In așteptare
@@ -147,10 +148,16 @@ export default function Reservations() {
     setIsOpen(true);
   };
 
-  const confirmDecision = () => {
-    handleAcceptanceChange(selectedDecision, selectedReservationId);
-    onClose();
-  };
+  ///////
+
+  async function confirmDecision(){
+    await fetchOrganizationRequestsResponse(id, selectedDecision);
+  }
+  // const confirmDecision = () => {
+
+  //   handleAcceptanceChange(selectedDecision, selectedReservationId);
+  //   onClose();
+  // };
 
   const tableStyle = useBreakpointValue({
     base: { fontSize: 'sm', overflowX: 'scroll' },
@@ -184,10 +191,10 @@ export default function Reservations() {
             </Tr>
           </Thead>
           <Tbody>
-            {reservations.map(reservation => (
-              <Tr key={reservation.id}>
-                <Td>{reservation.patientName}</Td>
-                <Td>{reservation.datesForHousing}</Td>
+            {data.map(reservation => (
+              <Tr key={reservation.locationId}>
+                <Td>{reservation.beneficiaryName}</Td>
+                <Td>{reservation.startDate}-{reservation.endDate}</Td>
                 <Td>{reservation.address}</Td>
                 {isMobile ? (
                   <Td>
@@ -195,7 +202,7 @@ export default function Reservations() {
                       icon={<Icon as={DownloadIcon} />}
                       variant="ghost"
                       aria-label="Download Document"
-                      href={reservation.documents}
+                      href={reservation.docs}
                       target="_blank"
                       rel="noopener noreferrer"
                     />
@@ -203,7 +210,7 @@ export default function Reservations() {
                 ) : (
                   <Td>
                     <a
-                      href={reservation.documents}
+                      href={reservation.docs}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -216,14 +223,18 @@ export default function Reservations() {
                     <Checkbox
                       isChecked={reservation.acceptance === true}
                       isDisabled={reservation.isDecisionFinal} 
-                      onChange={() => openConfirmation(true, reservation.id)}
+                      onChange={() => {openConfirmation(true, reservation.id);
+                        setId(reservation.locationId);}}
                     >
                       Acceptă
                     </Checkbox>
                     <Checkbox
                       isChecked={reservation.acceptance === false}
                       isDisabled={reservation.isDecisionFinal} 
-                      onChange={() => openConfirmation(false, reservation.id)}
+                      onChange={() => {
+                        setId(reservation.locationId);
+                        openConfirmation(false, reservation.id);
+                    }}
                     >
                       Respinge
                     </Checkbox>

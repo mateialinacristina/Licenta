@@ -16,6 +16,7 @@ import DatePicker from 'react-datepicker';
 import { CalendarIcon } from '@chakra-ui/icons';
 import 'react-datepicker/dist/react-datepicker.css';
 import { fetchAddLocation } from '../axios/RequestsLocations';
+import Cookies from 'js-cookie';
 
 
 export default function AddLocationCard() {
@@ -23,41 +24,43 @@ export default function AddLocationCard() {
   const [endDate, setEndDate] = useState(null);
   const handleDateChange = dates => {
     const [start, end] = dates;
+    //const formatDate = (date) => date ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` : null;
+    
+    console.log(start != null ? `${start.getFullYear()}-${String(start.getMonth() + 1).padStart(2, '0')}-${String(start.getDate()).padStart(2, '0')}`: '0000-00-01')
+    //console.log(`${end.getFullYear()}-${String(end.getMonth() + 1).padStart(2, '0')}-${String(end.getDate()).padStart(2, '0')}`)
+
     setStartDate(start);
     setEndDate(end);
+    console.log(end != null ? `${end.getFullYear()}-${String(end.getMonth() + 1).padStart(2, '0')}-${String(end.getDate()).padStart(2, '0')}`: '0000-00-01')
+    console.log(startDate, endDate)
   };
 
     ///
 
     const[file, setFile] = useState();
-    const[fileName, setFileName] = useState()
+    const[mainFile, setMainFile] = useState();
     const[address, setAddress] = useState();
     const[city, setCity] = useState();
     const[linkLocation, setLinkLocation] = useState();
     const[description, setDescription] = useState();
-    const[organizationId, setOrganizationId] = useState();
-    const[AvilableDate, setAvailableDate] = useState();
 
-    const saveFile =(e)=>{
-      setFile(e.target.files[0]);
-      setFileName(e.target.files[0].name)
-    }
   
     async function OnClickSave(){
       const fromData = new FormData();
       fromData.append("images", file);
       fromData.append("id", 1253);
-      fromData.append("address", "caeav");
-      fromData.append("city", "sadfsd");
+      fromData.append("address", address);
+      fromData.append("city", city);
       fromData.append("isAvilable", true);
-      fromData.append("linkLocation", "fileName");
+      fromData.append("linkLocation", linkLocation);
       fromData.append("mainImage", file);
-      fromData.append("AvilableDate", "2023-02-02");
-      fromData.append("description", "ceva");
-      fromData.append("organizationID", 1);
-      console.log(fromData);
+      fromData.append("startDate", startDate);
+      fromData.append("endDate", endDate);
+      fromData.append("description", description);
+      fromData.append("organizationID", Cookies.get("primarySid"));
+      console.log(startDate, endDate);
       if (startDate) {
-        fromData.append("startDate", startDate.toISOString().split('T')[0]); // e.g., "2023-02-02"
+        fromData.append("startDate", startDate.toISOString().split('T')[0]); 
       }
       if (endDate) {
         fromData.append("endDate", endDate.toISOString().split('T')[0]);
@@ -65,6 +68,8 @@ export default function AddLocationCard() {
       await fetchAddLocation(fromData);
     }
     ///
+
+    
 
   return (
     <Flex minH={'100vh'} align={'center'} justify={'center'}>
@@ -102,11 +107,11 @@ export default function AddLocationCard() {
             </FormControl>
             <FormControl id="photos" isRequired>
               <FormLabel>Adaugă poze cu locația</FormLabel>
-              <Input type="file" multiple onChange={e => saveFile(e)} />
+              <Input type="file" multiple onChange={e => setFile(e.target.files[0])} />
             </FormControl>
             <FormControl id="photo" isRequired>
               <FormLabel>Adaugă poza principală a locației adăugate</FormLabel>
-              <Input type="file" onChange={e => saveFile(e)} />
+              <Input type="file" onChange={e => setMainFile(e.target.files[0])} />
             </FormControl>
             <FormControl id="address" isRequired>
               <FormLabel>Adaugă adresa completă a locației</FormLabel>

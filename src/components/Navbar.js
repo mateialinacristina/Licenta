@@ -112,7 +112,7 @@ export default function WithSubnavigation() {
           spacing={6}
           display={showButtons}
         >
-          {user ? (
+          {user.email != undefined ? (
             <Button
               fontSize={'sm'}
               fontWeight={600}

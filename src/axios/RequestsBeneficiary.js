@@ -16,6 +16,15 @@ export async function fetchSpecificBeneficiary(id){
     }
 }
 
+export async function fetchSpecificBeneficiaryByUserId(id){
+    try {
+        const response = await instance.get(`beneficiary/getbeneficiarybyuserid?id=${id}`, config);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export async function fetchAddBeneficiary(location){
     try {
         console.log(location)

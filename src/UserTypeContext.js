@@ -1,22 +1,30 @@
 import React, { createContext, useState, useContext } from 'react';
 import Cookies from 'js-cookie';
+import { fetchLogout } from './axios/RequestsAuthenticate';
 
 const UserTypeContext = createContext();
 
 export const UserTypeProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const initialUser = {
+    email: Cookies.get("email"),
+    role: Cookies.get("role") // Assuming you set a cookie named "role" after logging in
+  };
+
+  const [user, setUser] = useState(initialUser);
+
 
   const login = (userObj, navigate) => {
     setUser(userObj);
-    Cookies.set('userRole', userObj.role);
+    //Cookies.set('email', userObj.email);
+    //Cookies.set('role', userObj.role);
     if (navigate) {
       navigate(userObj.role === 'organization' ? '/addlocation' : '/locations');
     }
   };
 
   const logout = (navigate) => {
-    setUser(null);
-    Cookies.remove('userRole');
+    //setUser(null);
+    fetchLogout();
     if (navigate) {
       navigate('/');
     }

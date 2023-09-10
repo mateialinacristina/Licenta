@@ -19,13 +19,16 @@ import {
   AlertIcon,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { fetchRegisterOrganization } from '../axios/RequestsAuthenticate';
 
 export default function OrgSignup() {
   const [showPassword, setShowPassword] = useState(false);
   const [orgName, setOrgName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [files, setFiles] = useState([]);
+  const [fileLogo, setFilesLogo] = useState([]);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [phone, setPhone] = useState('');
   const [city, setCity] = useState('');
@@ -39,12 +42,12 @@ export default function OrgSignup() {
     fromData.append("phoneNumber", phone);
     fromData.append("city", city);
     fromData.append("file", files);
-    fromData.append("logo", files);
-    fromData.append("confirmPassword", password);
+    fromData.append("logo", fileLogo);
+    fromData.append("confirmPassword", confirmPassword);
     fromData.append("email", email);
     fromData.append("password", password);
 
-    console.log(fromData);
+    console.log(orgName, phone,city,password,confirmPassword,email);
     await fetchRegisterOrganization(fromData);
 
     // dupa care sa fie redirectionat
@@ -150,7 +153,7 @@ export default function OrgSignup() {
                   <Input
                     type={showPassword ? 'text' : 'password'}
                     value={confirmPassword}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={e => setConfirmPassword(e.target.value)}
                   />
                   <InputRightElement h={'full'}>
                     <Button
@@ -170,8 +173,8 @@ export default function OrgSignup() {
                   Atașează logo-ul organizatiei
                 </FormLabel>
                 <Input
-                  type="logo"
-                  onChange={e => setFiles(e.target.files)}
+                  type="file"
+                  onChange={e => setFilesLogo(e.target.files[0])}
                 />
               </FormControl>
               <FormControl id="orgDocuments" isRequired>
@@ -182,7 +185,7 @@ export default function OrgSignup() {
                 <Input
                   type="file"
                   multiple
-                  onChange={e => setFiles(e.target.files)}
+                  onChange={e => setFiles(e.target.files[0])}
                 />
               </FormControl>
               <Stack spacing={10} pt={2}>

@@ -26,7 +26,17 @@ export default function SignIn() {
 
   async function handleSignIn(){
     console.log(credentials)
-    await fetchLogin(credentials);
+    const response = await fetchLogin(credentials);
+
+    if (response && response.status === 200) {
+      const userObj = {
+        email: response.email, // Assuming these are the response keys, adjust accordingly
+        role: response.role
+      };
+      login(userObj, navigate);
+    } else {
+      console.error('Invalid credentials!');
+    }
   }
 
   const handleChange = e => {

@@ -37,7 +37,7 @@ export async function fetchOrganizationRequests(id){
 export async function fetchOrganizationRequestsResponse(id, isApprove){
     try {
         console.log(id, isApprove)
-        const response = await instance.post(`request/changestatusapprovel?id=${id}&isApprove=${isApprove}`, config);
+        const response = await instance.post(`request/changestatusapprovel?id=${id}&isApprove=${isApprove}`, {}, config);
         return response.data;
     } catch (error) {
         throw error;

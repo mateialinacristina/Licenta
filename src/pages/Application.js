@@ -14,27 +14,34 @@ import {
   useColorModeValue,
   Select,
 } from '@chakra-ui/react';
-import { fetchAddBeneficiary , fetchUpdateBeneficiary, fetchSpecificBeneficiary} from '../axios/RequestsBeneficiary';
+import { fetchAddBeneficiary , fetchUpdateBeneficiary, fetchSpecificBeneficiaryByUserId} from '../axios/RequestsBeneficiary';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+
 
 export default function Application() {
 
     //////////////
+    // const [firstRender, setFirstRender] = useState(false);
+
 
     const [data, setData] = useState([]);
+
     useEffect(() => {
-        async function fetchData() {
-            try {//Cookies.get(id)
-                const result = await fetchSpecificBeneficiary(1);
-                setData(result);
-            } catch (error) {
-                console.error("There was an error:", error);
-            }
+      async function fetchData() {
+        try {
+          const result = await fetchSpecificBeneficiaryByUserId(
+            Cookies.get('id')
+          );
+          setData(result);
+          console.log(data)
+        } catch (error) {
+          console.error('There was an error:', error);
         }
-        fetchData();
-      }, []);
-      console.log(data);
+      }
+      fetchData();
+    }, []); 
+      
 
   const [file, setFile] = useState();
   const [firstName, setFirstName] = useState();
@@ -48,20 +55,20 @@ export default function Application() {
   async function OnClickSave(){
     //trebuie introduse valorile corecte
     const fromData = new FormData();
-    fromData.append("id", 1253);
-    fromData.append("detailsSituation", "caeav");
+    fromData.append("id",  (Cookies.get("primarySid") == 'undefined') ? 0 : (Cookies.get("primarySid")));
+    fromData.append("detailsSituation", details);
     fromData.append("isVerify", false);
-    fromData.append("phoneNumber", "true");
+    fromData.append("phoneNumber", phoneNumber);
     fromData.append("userID", Cookies.get("id"));
     fromData.append("files", file);
 
-    console.log(fromData);
-
+    console.log((Cookies.get("primarySid") == 'undefined') ? null : (Cookies.get("primarySid")));
+    
     //cerere in back pt autocompletare TO DO
-    if(Cookies.get("isValid") == false)
+    if(Cookies.get("primarySid") == 'undefined')
     {
     await fetchAddBeneficiary(fromData);
-    }
+  }
     else
     {
       //trebuie facute cateva modificari
@@ -102,8 +109,8 @@ export default function Application() {
                     <FormLabel>Nume</FormLabel>
                     <Input
                       type="text"
-                      value={firstName}
-                      onChange={e => setFirstName(e.target.value)}
+                      value={data.firstName}
+                      onChange={e=> setFirstName(e.target.value)}
                     />
                   </FormControl>
                 </Box>
@@ -112,7 +119,7 @@ export default function Application() {
                     <FormLabel>Prenume</FormLabel>
                     <Input
                       type="text"
-                      value={lastName}
+                      value={data.lastName}
                       onChange={e => setLastName(e.target.value)}
                     />
                   </FormControl>
@@ -122,7 +129,7 @@ export default function Application() {
                 <FormLabel>Telefon</FormLabel>
                 <Input
                   type="text"
-                  value={phoneNumber}
+                  value={data.phoneNumber}
                   onChange={e => setPhoneNumber(e.target.value)}
                 />
               </FormControl>
@@ -139,7 +146,7 @@ export default function Application() {
                 <Textarea
                   placeholder="Scrie aici..."
                   size="md"
-                  value={details}
+                  value={data.details}
                   onChange={e => setDetails(e.target.value)}
                 />
               </FormControl>
