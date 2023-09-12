@@ -41,7 +41,7 @@ export default function OrgSignup() {
     fromData.append("name", orgName);
     fromData.append("phoneNumber", phone);
     fromData.append("city", city);
-    fromData.append("file", files);
+    fromData.append("files", files);
     fromData.append("logo", fileLogo);
     fromData.append("confirmPassword", confirmPassword);
     fromData.append("email", email);
@@ -174,6 +174,7 @@ export default function OrgSignup() {
                 </FormLabel>
                 <Input
                   type="file"
+                  accept='.img,.png,.jpg,.jpeg'
                   onChange={e => setFilesLogo(e.target.files[0])}
                 />
               </FormControl>
@@ -184,7 +185,7 @@ export default function OrgSignup() {
                 </FormLabel>
                 <Input
                   type="file"
-                  multiple
+                  
                   onChange={e => setFiles(e.target.files[0])}
                 />
               </FormControl>
@@ -205,7 +206,7 @@ export default function OrgSignup() {
               <Stack pt={6}>
                 <Text align={'center'}>
                   Ai deja cont?{' '}
-                  <Link color={'blue.400'} href="/orgsignin">
+                  <Link color={'blue.400'} href="/signin">
                     Conectează-te
                   </Link>
                 </Text>

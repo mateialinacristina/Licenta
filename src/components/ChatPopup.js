@@ -8,21 +8,58 @@ import {
     VStack,
   } from "@chakra-ui/react";
   import { ChatIcon, CloseIcon } from "@chakra-ui/icons";
-  import { useState } from "react";
-  
-  function ChatPopup() {
+  import { useState, useEffect } from "react";
+import { fetchSendMessage } from "../axios/RequestsOrganization";
+import Cookies from "js-cookie";
+  import { fetchBeneficiarySendMessage } from "../axios/RequestsBeneficiary";
+import { getCurrentFormattedDate } from "../axios/RequestsOrganization";
+
+// nu merge scroll to bottom, verifica in Messages.js
+
+  function ChatPopup(organizationID) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [messages, setMessages] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
-  
-    const handleSendMessage = () => {
+    const [chatHistory, setChatHistory] = useState("")
+    useEffect(() => {
+      async function fetchData() {
+          try {
+            console.log(organizationID)
+              const result = await fetchBeneficiarySendMessage(Cookies.get("primarySid"));
+              console.log(result)
+              setChatHistory(result
+                .filter(item => item.organizationID == organizationID.organizationID)
+                .sort((a, b) => new Date(a.sendDate) - new Date(b.sendDate)));
+          } catch (error) {
+              console.error("There was an error:", error);
+          }
+      }
+      
+      fetchData();
+    }, []);
+
+
+    const handleSendMessage = async() => {
       if (currentMessage.trim()) {
-        setMessages([...messages, { from: "user", text: currentMessage.trim() }]);
-        setCurrentMessage("");
-        // Simulated response from "support"
-        setTimeout(() => {
-          setMessages([...messages, { from: "user", text: currentMessage.trim() }, { from: "support", text: "Thank you for your message!" }]);
-        }, 1000);
+        const body={
+          messageSend: currentMessage,
+          isOrganization: false,
+          organizationID: organizationID.organizationID,
+          beneficiaryID: parseInt(Cookies.get("primarySid"))
+        }
+
+        const newMessage ={
+          sendDate: getCurrentFormattedDate(),
+          beneficiaryID: parseInt(Cookies.get("primarySid")),
+          isOrganization: false,
+          messageSend: currentMessage,
+          organizationID: organizationID.organizationID,
+          toName: "Chat"
+          }
+          setChatHistory(chatHistory.concat(newMessage))
+          setCurrentMessage("")
+
+        await fetchSendMessage(body)
       }
     };
   
@@ -46,23 +83,23 @@ import {
             </Flex>
             <VStack
               flex="1"
-              overflowY="auto"
+              overflowY="scroll"
+              maxH='300px'
               spacing="4"
               align="start"
-              divider={<Box border="1px solid" borderColor="gray.200" w="full" />}
             >
-              {messages.map((message, idx) => (
+              {chatHistory.map((message, idx) => (
                 <Flex
                   key={idx}
-                  alignSelf={message.from === "user" ? "flex-end" : "flex-start"}
+                  alignSelf={message.isOrganization != true ? "flex-end" : "flex-start"}
                 >
                   <Box
-                    bg={message.from === "user" ? "blue.500" : "gray.200"}
-                    color={message.from === "user" ? "white" : "black"}
+                    bg={message.isOrganization != true ? "blue.500" : "gray.200"}
+                    color={message.isOrganization != true ? "white" : "black"}
                     p={2}
                     borderRadius="md"
                   >
-                    {message.text}
+                    {message.messageSend}
                   </Box>
                 </Flex>
               ))}

@@ -8,16 +8,16 @@ import {
   HStack,
 } from '@chakra-ui/react';
 
-const ImgGallery = () => {
+const ImgGallery = (prop) => {
     const [currentImage, setCurrentImage] = useState(0);
-
-    const images = [
-      // Add your images URLs here...
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1258&q=80',
-      'https://images.unsplash.com/photo-1691751579305-cfaee3b8ec2b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
-      'https://images.unsplash.com/photo-1562663474-6cbb3eaa4d14?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
-      // ... and so on
-    ];
+    const images = prop.imga.split(",")
+    // const images = [
+    //   // Add your images URLs here...
+    //   'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1258&q=80',
+    //   'https://images.unsplash.com/photo-1691751579305-cfaee3b8ec2b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
+    //   'https://images.unsplash.com/photo-1562663474-6cbb3eaa4d14?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
+    //   // ... and so on
+    // ];
   
     const handleNext = () => {
       setCurrentImage((prevImage) => (prevImage + 1) % images.length);

@@ -35,92 +35,24 @@ export default function Reservations() {
             try {
                 const result = await fetchOrganizationRequests(Cookies.get("primarySid")); 
                 setData(result);
-                console.log(result);
             } catch (error) {
                 console.error("There was an error:", error);
             }
         }
         fetchData();
       }, []);
-      console.log(data);
 
       const[id, setId] = useState();
-      //const[isApprove, setIsApprove] = useState()
-    
-      // async function ChangeStatusRequest(){
-      //   //id si isApprove trebuie adaugate
-      //   const body = {
-      //     id: 4,
-      //     isApprove: false
-      //   }
-      //     await fetchOrganizationRequestsResponse(4, true);
-      //   }
 
+  const getStatusTag = (isApproved) => {
 
-
-  // Sample reservation data, replace this with your actual data fetched from API
-  // const [reservations, setReservations] = useState([
-  //   {
-  //     id: 1,
-  //     patientName: 'Maria Popa',
-  //     datesForHousing: '01 Jan - 07 Jan',
-  //     address: "str. Elev Stefan Stefanescu nr 5",
-  //     documents: '/docs/doc1.pdf',
-  //     acceptance: null,
-  //     isDecisionFinal: false,
-  //   },
-  //   {
-  //     id: 2,
-  //     patientName: 'Ion Neagu',
-  //     datesForHousing: '15 Feb - 21 Feb',
-  //     address: "str. Elev Stefan Stefanescu nr 5",
-  //     documents: '/docs/doc2.pdf',
-  //     acceptance: null,
-  //     isDecisionFinal: false,
-  //   },
-  //   {
-  //     id: 3,
-  //     patientName: 'Stefan Giurgea',
-  //     datesForHousing: '10 Mar - 13 Mar ',
-  //     address: "str. Elev Stefan Stefanescu nr 5",
-  //     documents: '/docs/doc2.pdf',
-  //     acceptance: null,
-  //     isDecisionFinal: false,
-  //   },
-  //   {
-  //     id: 4,
-  //     patientName: 'Ioana Matei',
-  //     datesForHousing: '5 Feb - 8 Feb',
-  //     address: "str. Elev Stefan Stefanescu nr 5",
-  //     documents: '/docs/doc2.pdf',
-  //     acceptance: null,
-  //     isDecisionFinal: false,
-  //   },
-  // ]);
-
-  // const handleAcceptanceChange = (value, id) => {
-  //   const updatedReservations = reservations.map(reservation => {
-  //     if (reservation.id === id) {
-  //       return {
-  //         ...reservation,
-  //         acceptance: value,
-  //         isDecisionFinal: true, // Set the flag when a decision is made
-  //       };
-  //     }
-  //     return reservation;
-  //   });
-  //   setReservations(updatedReservations);
-  // };
-
-  const getStatusTag = (acceptance) => {
-
-    if (acceptance === undefined) {
+    if (isApproved === undefined || isApproved === null) {
       return (
         <Tag size={'md'} variant="solid" colorScheme="orange">
           In așteptare
         </Tag>
       );
-    } else if (acceptance) {
+    } else if (isApproved) {
       return (
         <Tag size={'md'} variant="solid" colorScheme="teal">
           Acceptat
@@ -138,6 +70,7 @@ export default function Reservations() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDecision, setSelectedDecision] = useState(null);
   const [selectedReservationId, setSelectedReservationId] = useState(null);
+  const [emailBen, setEmailBen] = useState(null);
 
   const onClose = () => setIsOpen(false);
   const cancelRef = React.useRef();
@@ -148,49 +81,41 @@ export default function Reservations() {
     setIsOpen(true);
   };
 
-  ///////
-
   async function confirmDecision(){
-    await fetchOrganizationRequestsResponse(id, selectedDecision);
+    await fetchOrganizationRequestsResponse(id, selectedDecision, emailBen);
   }
-  // const confirmDecision = () => {
 
-  //   handleAcceptanceChange(selectedDecision, selectedReservationId);
-  //   onClose();
-  // };
 
   const tableStyle = useBreakpointValue({
-    base: { fontSize: 'sm', overflowX: 'scroll' },
-    md: { fontSize: 'md' },
+    base: { fontSize: 'sm', overflowX: 'scroll', overflowY: 'visible' },
+    md: { fontSize: 'md', overflowX: 'visible' },
   });
-
+  
   const displayType = useBreakpointValue({ base: 'mobile', md: 'desktop' });
   const isMobile = displayType === 'mobile';
 
   return (
     <VStack p={4} mx={4} rounded="md" spacing={4}>
-      <Heading as="h1" size="xl" pb={4}>
-        Gestionează rezervările
-      </Heading>
-      <Box
-        w="100%"
-        p="4"
-        bg="white"
-        rounded="md"
-        overflowX={isMobile ? 'scroll' : 'visible'}
-      >
-        <Table variant="simple" pt={4}>
-          <Thead>
-            <Tr>
-              <Th>Numele beneficiarului</Th>
-              <Th>Data cazării</Th>
+    <Heading as="h1" size="xl" pb={4}>
+      Gestionează rezervările
+    </Heading>
+    <Box w="100%" p="4" bg="white" rounded="md">
+      <Table variant="simple" pt={4} {...tableStyle}>
+        <Thead>
+          <Tr>
+            <Th>Numele beneficiarului</Th>
+            <Th>Data cazării</Th>
+            {isMobile ? (
+              <Th isTruncated maxWidth="100px">Adresa</Th> // Truncate Adresa on mobile
+            ) : (
               <Th>Adresa</Th>
-              {!isMobile && <Th>Documente</Th>}
-              <Th>Decizie cerere</Th>
-              <Th>Status</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
+            )}
+            {!isMobile && <Th>Documente</Th>}
+            <Th>Decizie cerere</Th>
+            <Th>Status</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
             {data.map(reservation => (
               <Tr key={reservation.locationId}>
                 <Td>{reservation.beneficiaryName}</Td>
@@ -221,26 +146,29 @@ export default function Reservations() {
                 <Td>
                   <Stack spacing={4} direction="row">
                     <Checkbox
-                      isChecked={reservation.acceptance === true}
-                      isDisabled={reservation.isDecisionFinal} 
+                      isChecked={reservation.isApproved === true}
+                      isDisabled={reservation.isApproved != null} 
                       onChange={() => {openConfirmation(true, reservation.id);
-                        setId(reservation.locationId);}}
+                        setId(reservation.locationId);
+                        setEmailBen(reservation.emailBeneficiary);
+                      }}
                     >
                       Acceptă
                     </Checkbox>
                     <Checkbox
-                      isChecked={reservation.acceptance === false}
-                      isDisabled={reservation.isDecisionFinal} 
+                      isChecked={reservation.isApproved === false}
+                      isDisabled={reservation.isApproved != null} 
                       onChange={() => {
                         setId(reservation.locationId);
                         openConfirmation(false, reservation.id);
+                        setEmailBen(reservation.emailBeneficiary);
                     }}
                     >
                       Respinge
                     </Checkbox>
                   </Stack>
                 </Td>
-                <Td>{getStatusTag(reservation.acceptance)}</Td>
+                <Td>{getStatusTag(reservation.isApproved)}</Td>
               </Tr>
             ))}
           </Tbody>

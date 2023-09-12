@@ -55,7 +55,7 @@ export default function WithSubnavigation() {
   ];
 
   const NAV_ITEMS =
-    user && user.role === 'organization'
+  user.email != undefined && user.role === 'Organization'
       ? ORG_SPECIFIC_NAV_ITEMS
       : GENERAL_NAV_ITEMS;
 
@@ -203,7 +203,7 @@ const MobileNav = ({ navItems, user, handleLogout }) => {
       </Stack>
 
       <Stack spacing={4} align="center" width="100%">
-        {user ? (
+        {user.email != undefined ? (
           <Button
             fontSize={'sm'}
             fontWeight={600}

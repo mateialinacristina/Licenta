@@ -16,6 +16,12 @@ import AddLocation from './pages/AddLocation';
 import Chat from './pages/Chat';
 import Organizations from './pages/Organizations';
 import Reservations from './pages/Reservations';
+import Cookies from 'js-cookie';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
+
+
 
 function App() {
   return (
@@ -25,26 +31,33 @@ function App() {
       <Router>
         <Flex direction="column" minH="100vh">
           <Navbar />
+          
           <Box bg="#D6E9EF" flex="1">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/organizations" element={<Organizations />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/locations" element={<Locations />} />
               <Route path="/viewhome/:id" element={<ViewHome />} />
               <Route path="/application" element={<Application />} />
               <Route path="/orgsignup" element={<OrgSignup />} />
-              <Route path="/addlocation" element={<AddLocation />} />
+              {Cookies.get("role") === "Organization"?
+              <>
+              <Route path="/addlocation" element={<AddLocation />}/>
               <Route path="/chat" element={<Chat />} />
               <Route path="/reservations" element={<Reservations />} />
-              <Route path="/organizations" element={<Organizations />} />
+              </>
+              : <></>}
             </Routes>
           </Box>
           <Footer />
         </Flex>
       </Router>
+      <ToastContainer />
     </ChakraProvider>
     </UserTypeProvider> 
+    
   );
 }
 

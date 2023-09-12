@@ -17,24 +17,22 @@ import {
 import { fetchAddBeneficiary , fetchUpdateBeneficiary, fetchSpecificBeneficiaryByUserId} from '../axios/RequestsBeneficiary';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 
 export default function Application() {
 
-    //////////////
-    // const [firstRender, setFirstRender] = useState(false);
-
-
-    const [data, setData] = useState([]);
+    const [data, setData] = useState("");
 
     useEffect(() => {
       async function fetchData() {
         try {
+          if(Cookies.get('id') != undefined){
           const result = await fetchSpecificBeneficiaryByUserId(
             Cookies.get('id')
           );
           setData(result);
-          console.log(data)
+          }
         } catch (error) {
           console.error('There was an error:', error);
         }
@@ -53,30 +51,30 @@ export default function Application() {
     setFile(e.target.files[0]);
   }
   async function OnClickSave(){
-    //trebuie introduse valorile corecte
-    const fromData = new FormData();
-    fromData.append("id",  (Cookies.get("primarySid") == 'undefined') ? 0 : (Cookies.get("primarySid")));
-    fromData.append("detailsSituation", details);
-    fromData.append("isVerify", false);
-    fromData.append("phoneNumber", phoneNumber);
-    fromData.append("userID", Cookies.get("id"));
-    fromData.append("files", file);
+    if (Cookies.get('id') == undefined) {
+      window.location.replace('/signin');
+    } else {
+      const fromData = new FormData();
+      if (Cookies.get('primarySid') != 'undefined') {
+        fromData.append('id', parseInt(Cookies.get('primarySid')));
+      }
+      fromData.append('detailsSituation', details);
+      fromData.append('isVerify', false);
+      fromData.append('phoneNumber', phoneNumber);
+      fromData.append('userID', Cookies.get('id'));
+      fromData.append('files', file);
 
-    console.log((Cookies.get("primarySid") == 'undefined') ? null : (Cookies.get("primarySid")));
-    
-    //cerere in back pt autocompletare TO DO
-    if(Cookies.get("primarySid") == 'undefined')
-    {
-    await fetchAddBeneficiary(fromData);
-  }
-    else
-    {
-      //trebuie facute cateva modificari
-      await fetchUpdateBeneficiary(fromData);
+      if (Cookies.get('primarySid') == 'undefined') {
+        await fetchAddBeneficiary(fromData);
+      } else {
+        await fetchUpdateBeneficiary(fromData);
+      }
     }
-
   }
-  ////////////
+
+  function FailClick(){
+    toast.error(`Tebuie sa fii logat`)
+  }
 
   return (
     <Flex align={'center'} justify={'center'} mt={4} ml={['5%', '10%', '15%']}>
@@ -92,8 +90,8 @@ export default function Application() {
             <Heading fontSize={['2xl', '4xl']} textAlign={'center'}>
               Adaugă-ți datele
             </Heading>
-            <Text fontSize={['md', 'lg']} color={'gray.600'}>
-              Te rugăm să adaugi toate detaliile necesare!
+            <Text fontSize={['md', 'lg']} color={'gray.600'} textAlign={'center'}>
+              Pentru a putea rezerva o locație, trebuie să completezi toate câmpurile de mai jos!
             </Text>
           </Stack>
           <Box
@@ -159,7 +157,7 @@ export default function Application() {
                   _hover={{
                     bg: 'blue.500',
                   }}
-                  onClick={OnClickSave}
+                  onClick={Cookies.get('id') != undefined ? OnClickSave : FailClick}
                 >
                   Salvează
                 </Button>

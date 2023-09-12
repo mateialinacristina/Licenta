@@ -33,7 +33,8 @@ const sampleConversations = [
   },
 ];
 
-const ConversationsList = ({ onConversationClick }) => {
+const ConversationsList = ({ onConversationClick , chatHistory}) => {
+  console.log(chatHistory)
   const headingSize = useBreakpointValue({ base: "lg", md: "xl" }); // Adjust the heading size
   const avatarSize = useBreakpointValue({ base: "md", md: "lg" });  // Adjust the avatar size
 
@@ -43,7 +44,7 @@ const ConversationsList = ({ onConversationClick }) => {
         Conversații
       </Heading>
       <List spacing={4}>
-        {sampleConversations.map((conversation, index, array) => (
+        {chatHistory.map((conversation, index, array) => (
           <ListItem 
             key={conversation.id}
             borderBottomWidth={index === array.length - 1 ? '0px' : '1px'}
@@ -55,13 +56,13 @@ const ConversationsList = ({ onConversationClick }) => {
             onClick={() => onConversationClick(conversation.id)}
           >
             <HStack spacing={3}>
-              <Avatar name={conversation.patientName} size={avatarSize} />
+              <Avatar name={conversation.beneficiaryName} size={avatarSize} />
               <VStack align="start" spacing={1} w="100%">
                 <Text fontWeight="bold" noOfLines={1} fontSize={'lg'}>
-                  {conversation.organizationName} & {conversation.patientName}
+                  {conversation.beneficiaryName}
                 </Text>
                 <Text isTruncated w="100%">
-                  {conversation.lastMessage}
+                  {conversation.lastMessageSend}
                 </Text>
               </VStack>
             </HStack>

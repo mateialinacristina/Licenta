@@ -1,18 +1,20 @@
 import instance from './Instance';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+
 const config = {     
     headers: { 
         'Authorization': `Bearer ${Cookies.get("token")}` 
     }
 }
+
+
 export async function fetchLocation(){
     try {
-        //Aceest config trebuie pus pe fiecare ruta care este influentata de roluri dar imi este somn
         const response = await instance.get('location', config);
-        console.log(response.data);
         return response.data;
     } catch (error) {
-        throw error;
+        
     }
 }
 
@@ -21,17 +23,17 @@ export async function fetchSpecificLocation(id){
         const response = await instance.get(`location/${id}`, config);
         return response.data;
     } catch (error) {
-        throw error;
     }
 }
 
 export async function fetchAddLocation(location){
     try {
-        console.log(location)
         const response = await instance.put(`location`, location, config);
+        toast.success(`Locatia a fost adaugata!`)
+        window.location.replace("/")
         return response.data;
     } catch (error) {
-        throw error;
+        toast.error(`Ceva a mers gresit, introdu din nou datele!`)
     }
 }
 

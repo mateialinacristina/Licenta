@@ -74,14 +74,13 @@ export default function Organizations() {
   const headingColor = useColorModeValue('gray.700', 'white');
 
 ////////////
-
 const [data, setData] = useState([]);
     useEffect(() => {
         async function fetchData() {
             try {
                 const result = await fetchOrganization();
+                console.log(result)
                 setData(result);
-                //console.log(result);
             } catch (error) {
                 console.error("There was an error:", error);
             }
@@ -89,14 +88,13 @@ const [data, setData] = useState([]);
 
         fetchData();
       }, []);
-      
 /////////////
 
 
   return (
     <Center py={6}>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-        {organizations.map((org) => (
+        {data.map((org) => (
           <Box
             key={org.name}
             maxW={'445px'}
@@ -108,7 +106,7 @@ const [data, setData] = useState([]);
             overflow={'hidden'}
           >
             <Box h={'210px'} bg={'gray.100'} mt={-6} mx={-6} mb={6} pos={'relative'}>
-              <img src={org.image} alt={org.name} style={{ width: '100%', height: '210px', objectFit: 'cover' }} />
+              <img src={org.logo} alt={org.name} style={{ width: '100%', height: '210px', objectFit: 'cover' }} />
             </Box>
             <Stack>
               <Heading
@@ -125,7 +123,7 @@ const [data, setData] = useState([]);
                 Phone: {org.phoneNumber}
               </Text>
               <Text color={'gray.500'}>
-                Email: {org.email}
+                Email: {org.user.email}
               </Text>
             </Stack>
           </Box>

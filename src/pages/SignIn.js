@@ -14,6 +14,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { fetchLogin } from '../axios/RequestsAuthenticate';
+import { toast } from 'react-toastify';
 
 
 export default function SignIn() {
@@ -25,6 +26,7 @@ export default function SignIn() {
   });
 
   async function handleSignIn(){
+
     console.log(credentials)
     const response = await fetchLogin(credentials);
 
@@ -35,7 +37,7 @@ export default function SignIn() {
       };
       login(userObj, navigate);
     } else {
-      console.error('Invalid credentials!');
+      //toast.error("Credentiale invalide!")
     }
   }
 

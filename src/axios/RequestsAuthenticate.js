@@ -1,34 +1,39 @@
 import instance from './Instance';
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+
 
 
 export async function fetchRegisterOrganization(body){
     try {
         const response = await instance.post('account/registerorganization', body);
-        console.log(response)
+        toast.success("Bine ai venit, te-ai conectat cu succes!");
+        window.location.replace("/signin")
         return response.data;
     } catch (error) {
-        throw error;
+        toast.error("Campurile nu sunt completate!");
+        toast.info("Completati toate campurile!");
+        //throw error;
     }
 }
 
 export async function fetchRegisterBeneficiary(body){
     try {
-        console.log(body)
-        headers: {
-          
-        }
         const config = {     
             headers: { 
                 'Content-Type': 'application/json',
             }
         }
         const response = await instance.post('account/registerbeneficiary', body, config);
-        console.log(response)
-        return response.data;
+        window.location.replace("/signin")
+        toast.success(`Bine ai venit, te-ai conectat cu succes!`);
     } catch (error) {
-        throw error;
+        toast.error("Campurile nu sunt completate!");
+        toast.info("Completati toate campurile!");
+        //throw error;
     }
 }
 
@@ -44,10 +49,11 @@ export async function fetchLogin(body){
         Cookies.set("primarySid", decode_token["http://schemas.microsoft.com/ws/2008/06/identity/claims/primarysid"]);
         Cookies.set("token", response.data["token"])
         window.location.replace('/')
-
+        toast.success(`Bine ai venit, te-ai conectat cu succes!`);
         //Cookies.get("email")   pentru a lua cookiul
     } catch (error) {
-        throw error;
+        toast.error("Email sau parola incorecta!");
+        //throw error;
     }
 }
 
@@ -60,7 +66,8 @@ export function fetchLogout(){
         Cookies.remove("isValid")
         Cookies.remove("primarySid")
         window.location.replace('/')
+        toast.info("Te mai asteptam!");
     } catch (error) {
-        throw error;
+        toast.error("Ceva nu a mers bine, incearca din nou!");
     }
 }
