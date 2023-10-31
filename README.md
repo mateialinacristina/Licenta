@@ -1,68 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+    "Free Housing" este o aplicație practică ce abordează o problemă presantă a pacienților
+care necesită tratamente medicale prelungite în diverse orașe din România, fiind o resursă
+esențială pentru aceia care nu își permit costurile de cazare. Având ca principal scop ușurarea
+procesului de găsire a cazării, aplicația vine în ajutorul pacienților care suferă de cancer sau alte
+afecțiuni care impun o prezență îndelungată în afara orașului de domiciliu.
 
-## Available Scripts
+    Utilizatorii pot selecta orașul în care trebuie să se deplaseze pentru tratament și pot
+identifica locurile de cazare gratuite disponibile. Pentru a aplica, este necesară crearea unui cont
+care să includă documente personale, medicale, precum și cele care atestă venitul. Acestea sunt
+apoi revizuite de organizațiile care oferă cazare gratuită, care pot accepta sau refuza cererea, în
+funcție de o anchetă socială. În plus, aplicația oferă posibilitatea ca pacienții să ia legătura directă
+cu aceste organizații pentru a discuta detalii sau a clarifica diverse întrebări.
 
-In the project directory, you can run:
+    "Free Housing" este o soluție tehnologică dezvoltată în .NET și React.js, care
+îmbunătățește accesul la servicii esențiale și diminuează stresul financiar al pacienților,
+contribuind la ameliorarea experienței lor în timpul procesului de tratament. Prin implicarea
+directă a organizațiilor caritabile, aplicația încurajează și consolidează legăturile dintre
+comunitățile care oferă ajutor și indivizii care au cea mai mare nevoie de acesta.
 
-### `npm start`
+______________________________________________________________________________________________
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    "Free Housing" is an practical application that addresses a pressing problem of patients
+who require prolonged medical treatments in various cities in Romania, being an essential
+resource for those who cannot afford accommodation costs. With the main goal of facilitating the
+process of finding accommodation, the application comes to the aid of patients suffering from
+cancer or other conditions that require a long stay outside their home city.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+    Users can select the city they need to travel to for treatment and identify available free
+accommodation. To apply, it is necessary to create an account that includes personal, medical and
+income documents. These are then reviewed by the organizations providing free accommodation,
+who may accept or reject the application based on a social inquiry. In addition, the application
+allows patients to directly contact these organizations to discuss details or clarify various
+questions.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+    "Free Housing" is a technological solution developed in .NET and React.js, which
+improves access to essential services and lessens the financial stress of patients, helping to
+improve their experience during the treatment process. By directly engaging charities, the app
+encourages and strengthens the links between the communities that provide aid and the
+individuals who need it most.
